@@ -2,7 +2,7 @@
 
 Cork, Ireland · +353 89 958 0534 · hannannabi@gmail.com
 
-[linkedin.com/in/hannan-nabi](https://linkedin.com/in/hannan-nabi) · [github.com/hannan-n](https://github.com/hannan-n) · [nah.hannan](https://nah.hannan.com/)
+[linkedin.com/in/hannan-nabi](https://linkedin.com/in/hannan-nabi-42697a164) · [github.com/hannan-n](https://github.com/hannan-n) · [nah.hannan](https://nah-hannan.com/)
 
 ## Profile
 
@@ -67,7 +67,7 @@ A small hybrid model: GARCH for the conditional variance structure, an LSTM for 
 
 A 2x2 singular value decomposition explorer. You change the matrix, you see the singular values, the condition number, the rank, and the unit circle being mapped. Lives as the hidden puzzle on my site.
 
-**nah.hannan.** A single-file site that I use as a public notebook. Notes, research log, essays in progress, an annotated library of about 60 books, a terminal sandbox, and the SVD puzzle. No frameworks; hand-written HTML, CSS, and JavaScript.
+**nah-hannan.com** A single-file site that I use as a public notebook. Notes, research log, essays in progress, an annotated library of about 60 books, a terminal sandbox, and the SVD puzzle. No frameworks; hand-written HTML, CSS, and JavaScript.
 
 ## Interests
 
