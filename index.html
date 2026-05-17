@@ -5,16 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#d4c8b0">
     <meta name="color-scheme" content="light dark">
-    <title>nah.hannan — notes, systems, probability</title>
-    <meta name="description" content="hannan nabi. notes on systems, probability, and small experiments. an interactive svd lives at the bottom of the page.">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self';
+                   script-src 'self' 'unsafe-inline';
+                   style-src 'self' 'unsafe-inline' https://fonts.bunny.net;
+                   font-src https://fonts.bunny.net;
+                   img-src 'self' https://imgs.xkcd.com data:;
+                   connect-src 'none';
+                   frame-src 'none';
+                   object-src 'none';
+                   base-uri 'self';
+                   form-action 'self';">
+    <meta http-equiv="Referrer-Policy" content="no-referrer">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), microphone=()">
+    <title>nah.hannan — finance, stats, code</title>
+    <meta name="description" content="hannan nabi. msc finance student. building things to understand them.">
     <meta name="author" content="Hannan Nabi">
-    <link rel="canonical" href="https://nah-hannan.com/">
-    <link rel="me" href="https://github.com/nahhannan">
-    <link rel="me" href="https://twitter.com/nahhannan">
-    <link rel="me" href="mailto:hannan@nah.hannan">
-    <link rel="webmention" href="https://webmention.io/nahhannan/webmention">
+    <link rel="canonical" href="https://nah.hannan/">
     <link rel="alternate" type="application/rss+xml" title="nah.hannan notes" href="/feed.xml">
-    <link href="https://fonts.bunny.net/css?family=ibm-plex-mono:400,500,600|vt323:400&display=swap" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=ibm-plex-mono:400,500,600|vt323:400&display=swap"
+          rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
         :root {
             --paper: #f5f2e8;
@@ -38,20 +49,8 @@
             --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
             --pixel: 'VT323', ui-monospace, monospace;
         }
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        html,
-        body {
-            height: 100%;
-            font-family: var(--mono);
-            font-size: 14px;
-            color: var(--ink);
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; font-family: var(--mono); font-size: 14px; color: var(--ink); }
         body {
             background: radial-gradient(120% 80% at 50% 0%, #e8d8b8 0%, transparent 60%),
                 radial-gradient(80% 60% at 50% 100%, #b8a888 0%, transparent 50%),
@@ -68,44 +67,33 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
-            background-image: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.01) 0 1px, transparent 1px 3px);
+            background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.01) 0 1px, transparent 1px 3px);
             z-index: 1;
         }
-        :focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 3px;
-            border-radius: 1px;
-        }
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 1px; }
         .mac {
             position: relative;
             width: min(760px, 100%);
             background: linear-gradient(180deg, var(--case-hi) 0%, var(--case-1) 8%, var(--case-2) 65%, var(--case-3) 100%);
             border-radius: 16px 16px 22px 22px;
             padding: 22px 22px 0;
-            box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.5), inset 0 -2px 0 rgba(0, 0, 0, 0.15),
-                inset 2px 0 0 rgba(255, 255, 255, 0.22), inset -2px 0 0 rgba(0, 0, 0, 0.12),
-                0 30px 60px -20px rgba(60, 40, 20, 0.4), 0 8px 20px -8px rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 2px 0 rgba(255,255,255,0.5), inset 0 -2px 0 rgba(0,0,0,0.15),
+                inset 2px 0 0 rgba(255,255,255,0.22), inset -2px 0 0 rgba(0,0,0,0.12),
+                0 30px 60px -20px rgba(60,40,20,0.4), 0 8px 20px -8px rgba(0,0,0,0.3);
             z-index: 2;
         }
-        .vents {
-            display: flex;
-            justify-content: center;
-            gap: 3px;
-            padding: 2px 0 14px;
-        }
+        .vents { display: flex; justify-content: center; gap: 3px; padding: 2px 0 14px; }
         .vents span {
-            width: 3px;
-            height: 9px;
-            border-radius: 1px;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.12));
-            box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.28);
+            width: 3px; height: 9px; border-radius: 1px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.12));
+            box-shadow: inset 0 1px 0 rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.28);
         }
         .bezel {
             background: linear-gradient(180deg, var(--bezel-1) 0%, var(--bezel-2) 50%, var(--bezel-1) 100%);
             border-radius: 7px;
             padding: 13px;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(255, 255, 255, 0.04),
-                0 1px 0 rgba(255, 255, 255, 0.35);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.55), inset 0 -1px 0 rgba(255,255,255,0.04),
+                0 1px 0 rgba(255,255,255,0.35);
         }
         .screen {
             background: var(--paper);
@@ -115,13 +103,13 @@
             min-height: 540px;
             display: flex;
             flex-direction: column;
-            box-shadow: inset 0 0 24px rgba(120, 100, 60, 0.16), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+            box-shadow: inset 0 0 24px rgba(120,100,60,0.16), inset 0 0 0 1px rgba(0,0,0,0.08);
         }
         .screen::before {
             content: '';
             position: absolute;
             inset: 0;
-            background-image: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.015) 0 1px, transparent 1px 3px);
+            background-image: repeating-linear-gradient(180deg, rgba(0,0,0,0.015) 0 1px, transparent 1px 3px);
             pointer-events: none;
             z-index: 5;
         }
@@ -129,54 +117,21 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(120% 90% at 50% 50%, transparent 62%, rgba(80, 60, 30, 0.14) 100%);
+            background: radial-gradient(120% 90% at 50% 50%, transparent 62%, rgba(80,60,30,0.14) 100%);
             pointer-events: none;
             z-index: 5;
         }
-        .crt-shutdown {
-            animation: crtCollapse 0.07s cubic-bezier(0.4, 0, 1, 1) forwards;
-        }
+        .crt-shutdown { animation: crtCollapse 0.07s cubic-bezier(0.4,0,1,1) forwards; }
         @keyframes crtCollapse {
-            0% {
-                transform: scaleY(1);
-                opacity: 1;
-                filter: brightness(1);
-            }
-            60% {
-                transform: scaleY(0.05);
-                opacity: 0;
-                filter: brightness(0);
-                background: #1a1a1a;
-            }
-            100% {
-                transform: scaleY(0);
-                opacity: 0;
-                filter: brightness(0);
-                background: #0a0a0a;
-            }
+            0%   { transform: scaleY(1); opacity: 1; filter: brightness(1); }
+            60%  { transform: scaleY(0.05); opacity: 0; filter: brightness(0); background: #1a1a1a; }
+            100% { transform: scaleY(0); opacity: 0; filter: brightness(0); background: #0a0a0a; }
         }
-        .crt-startup {
-            animation: crtExpand 0.4s ease-out forwards;
-        }
+        .crt-startup { animation: crtExpand 0.4s ease-out forwards; }
         @keyframes crtExpand {
-            0% {
-                transform: scaleY(0);
-                opacity: 0;
-                filter: brightness(0);
-                background: #0a0a0a;
-            }
-            70% {
-                transform: scaleY(0.9);
-                opacity: 0.8;
-                filter: brightness(0.8);
-                background: #e0d8c0;
-            }
-            100% {
-                transform: scaleY(1);
-                opacity: 1;
-                filter: brightness(1);
-                background: transparent;
-            }
+            0%   { transform: scaleY(0); opacity: 0; filter: brightness(0); background: #0a0a0a; }
+            70%  { transform: scaleY(0.9); opacity: 0.8; filter: brightness(0.8); background: #e0d8c0; }
+            100% { transform: scaleY(1); opacity: 1; filter: brightness(1); background: transparent; }
         }
         .menubar {
             height: 22px;
@@ -192,37 +147,13 @@
             z-index: 6;
             user-select: none;
         }
-        .menubar .left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .menubar .apple {
-            padding: 1px 4px;
-            border-radius: 2px;
-            cursor: default;
-        }
-        .menubar .apple:hover {
-            background: var(--ink);
-            color: var(--paper);
-        }
-        .menubar .apple svg {
-            width: 12px;
-            height: 15px;
-        }
-        .menubar .mitem {
-            padding: 1px 4px;
-            border-radius: 2px;
-            cursor: default;
-        }
-        .menubar .mitem:hover {
-            background: var(--ink);
-            color: var(--paper);
-        }
-        .menubar .clock {
-            font-variant-numeric: tabular-nums;
-            letter-spacing: 0.04em;
-        }
+        .menubar .left { display: flex; align-items: center; gap: 14px; }
+        .menubar .apple { padding: 1px 4px; border-radius: 2px; cursor: default; }
+        .menubar .apple:hover { background: var(--ink); color: var(--paper); }
+        .menubar .apple svg { width: 12px; height: 15px; }
+        .menubar .mitem { padding: 1px 4px; border-radius: 2px; cursor: default; }
+        .menubar .mitem:hover { background: var(--ink); color: var(--paper); }
+        .menubar .clock { font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
         .window {
             margin: 10px;
             background: var(--paper);
@@ -247,23 +178,12 @@
             color: var(--ink);
         }
         .titlebar .close {
-            position: absolute;
-            left: 6px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 11px;
-            height: 11px;
-            background: var(--paper);
-            border: 1px solid var(--ink);
+            position: absolute; left: 6px; top: 50%; transform: translateY(-50%);
+            width: 11px; height: 11px; background: var(--paper); border: 1px solid var(--ink);
         }
-        .title-text {
-            background: var(--paper);
-            padding: 0 12px;
-            white-space: nowrap;
-        }
+        .title-text { background: var(--paper); padding: 0 12px; white-space: nowrap; }
         .nav {
-            display: flex;
-            flex-wrap: wrap;
+            display: flex; flex-wrap: wrap;
             border-bottom: 1px solid var(--ink);
             background: var(--ink);
             gap: 1px;
@@ -271,739 +191,309 @@
             font-size: 15px;
         }
         .nav a {
-            background: var(--paper-2);
-            color: var(--ink);
-            text-decoration: none;
-            padding: 4px 11px;
-            flex: 1 1 auto;
-            text-align: center;
-            user-select: none;
-            letter-spacing: 0.5px;
-            line-height: 1.2;
-            transition: background 80ms;
-            cursor: pointer;
+            background: var(--paper-2); color: var(--ink); text-decoration: none;
+            padding: 4px 11px; flex: 1 1 auto; text-align: center;
+            user-select: none; letter-spacing: 0.5px; line-height: 1.2;
+            transition: background 80ms; cursor: pointer;
         }
-        .nav a:hover,
-        .nav a.active {
-            background: var(--ink);
-            color: var(--paper);
-        }
+        .nav a:hover, .nav a.active { background: var(--ink); color: var(--paper); }
         .body {
-            padding: 22px 22px 16px;
-            overflow: auto;
-            flex: 1;
-            min-height: 0;
-            line-height: 1.55;
-            font-size: 13px;
+            padding: 22px 22px 16px; overflow: auto; flex: 1; min-height: 0;
+            line-height: 1.55; font-size: 13px;
         }
-        .body::-webkit-scrollbar {
-            width: 14px;
-        }
+        .body::-webkit-scrollbar { width: 14px; }
         .body::-webkit-scrollbar-track {
             background: repeating-linear-gradient(0deg, var(--paper-2) 0 2px, var(--paper) 2px 4px);
             border-left: 1px solid var(--ink);
         }
         .body::-webkit-scrollbar-thumb {
-            background: var(--paper);
-            border: 1px solid var(--ink);
+            background: var(--paper); border: 1px solid var(--ink);
             box-shadow: inset 1px 1px 0 var(--paper-2);
         }
         .hero {
-            font-family: var(--pixel);
-            font-size: 38px;
-            line-height: 1;
-            margin: 4px 0 6px;
-            color: var(--ink);
-            min-height: 40px;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: baseline;
+            font-family: var(--pixel); font-size: 38px; line-height: 1;
+            margin: 4px 0 6px; color: var(--ink); min-height: 40px;
+            letter-spacing: 0.5px; display: flex; align-items: baseline;
         }
-        .hero .typed {
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
+        .hero .typed { white-space: pre-wrap; word-break: break-word; }
         .caret {
-            display: inline-block;
-            width: 0.55ch;
-            height: 0.9em;
-            background: var(--accent);
-            margin-left: 3px;
-            transform: translateY(3px);
+            display: inline-block; width: 0.55ch; height: 0.9em;
+            background: var(--accent); margin-left: 3px; transform: translateY(3px);
             animation: blink 1.05s steps(1) infinite;
         }
-        @keyframes blink {
-            50% {
-                opacity: 0;
-            }
-        }
-        .tagline {
-            font-family: var(--mono);
-            font-size: 11.5px;
-            color: var(--ink-soft);
-            letter-spacing: 0.03em;
-            margin-bottom: 22px;
-        }
-        .feed {
-            display: flex;
-            flex-direction: column;
-            border-top: 1px solid var(--rule-soft);
-        }
+        @keyframes blink { 50% { opacity: 0; } }
+        .tagline { font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); letter-spacing: 0.03em; margin-bottom: 22px; }
+        .feed { display: flex; flex-direction: column; border-top: 1px solid var(--rule-soft); }
         .row {
-            display: grid;
-            grid-template-columns: 100px 1fr auto;
-            gap: 16px;
-            padding: 10px 2px;
+            display: grid; grid-template-columns: 100px 1fr auto;
+            gap: 16px; padding: 10px 2px;
             border-bottom: 1px solid var(--rule-soft);
-            align-items: baseline;
-            color: inherit;
+            align-items: baseline; color: inherit;
         }
-        .row time,
-        .row .label {
-            font-family: var(--mono);
-            font-size: 11px;
-            color: var(--ink-soft);
-            font-variant-numeric: tabular-nums;
-        }
-        .row .title {
-            font-family: var(--mono);
-            font-size: 13px;
-            color: var(--ink);
-        }
-        .row .tag {
-            font-family: var(--pixel);
-            font-size: 13px;
-            color: var(--ink-soft);
-            opacity: 0;
-            transition: opacity 120ms;
-        }
-        .row:hover {
-            background: rgba(0, 0, 0, 0.04);
-        }
-        .row:hover .tag {
-            opacity: 1;
-        }
-        .row.lib .label {
-            color: var(--ink);
-            font-family: var(--pixel);
-            font-size: 14px;
-        }
+        .row time, .row .label { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+        .row .title { font-family: var(--mono); font-size: 13px; color: var(--ink); }
+        .row .tag { font-family: var(--pixel); font-size: 13px; color: var(--ink-soft); opacity: 0; transition: opacity 120ms; }
+        .row:hover { background: rgba(0,0,0,0.04); }
+        .row:hover .tag { opacity: 1; }
+        .row.lib .label { color: var(--ink); font-family: var(--pixel); font-size: 14px; }
         .promptline {
-            margin-top: 22px;
-            padding-top: 14px;
+            margin-top: 22px; padding-top: 14px;
             border-top: 1px solid var(--rule-soft);
-            font-family: var(--mono);
-            font-size: 12px;
-            color: var(--ink-soft);
-            line-height: 1.5;
+            font-family: var(--mono); font-size: 12px; color: var(--ink-soft); line-height: 1.5;
         }
+        /* ── library ───────────────────────────────────────────────── */
         .lib-category {
-            margin: 18px 0 8px;
-            font-family: var(--pixel);
-            font-size: 16px;
-            letter-spacing: 0.5px;
-            border-left: 3px solid var(--accent);
-            padding-left: 10px;
-            color: var(--ink);
+            margin: 18px 0 8px; font-family: var(--pixel); font-size: 16px;
+            letter-spacing: 0.5px; border-left: 3px solid var(--accent);
+            padding-left: 10px; color: var(--ink);
         }
-        .book-entry {
-            border-bottom: 1px solid var(--rule-soft);
-            cursor: pointer;
-            user-select: none;
-            transition: background 80ms;
-        }
-        .book-entry:hover {
-            background: rgba(0, 0, 0, 0.03);
-        }
+        .book-entry { border-bottom: 1px solid var(--rule-soft); cursor: pointer; user-select: none; transition: background 80ms; }
+        .book-entry:hover { background: rgba(0,0,0,0.03); }
         .book-title-row {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 12px;
-            padding: 8px 4px;
-            align-items: baseline;
-            font-family: var(--mono);
-            font-size: 13px;
-            color: var(--ink);
+            display: grid; grid-template-columns: 1fr auto; gap: 12px;
+            padding: 8px 4px; align-items: baseline;
+            font-family: var(--mono); font-size: 13px; color: var(--ink);
         }
-        .book-author {
-            font-size: 11px;
-            color: var(--ink-soft);
-            text-align: right;
-        }
+        .book-author { font-size: 11px; color: var(--ink-soft); text-align: right; }
         .book-thoughts {
-            display: none;
-            padding: 0 4px 10px 16px;
-            font-family: var(--mono);
-            font-size: 11.5px;
-            color: var(--ink-soft);
-            line-height: 1.6;
-            border-left: 2px solid var(--accent);
-            margin-left: 4px;
-            margin-bottom: 4px;
-            font-style: italic;
+            display: none; padding: 0 4px 10px 16px;
+            font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft);
+            line-height: 1.6; border-left: 2px solid var(--accent);
+            margin-left: 4px; margin-bottom: 4px; font-style: italic;
         }
-        .book-entry.open .book-thoughts {
-            display: block;
-            animation: fadeIn 0.2s ease;
-        }
-        .book-entry.open {
-            background: rgba(0, 170, 68, 0.04);
-        }
+        .book-entry.open .book-thoughts { display: block; animation: fadeIn 0.2s ease; }
+        .book-entry.open { background: rgba(0,170,68,0.04); }
+        /* ── terminal sign ────────────────────────────────────────── */
         .terminal-sign {
-            background: var(--terminal-bg);
-            color: var(--terminal-text);
-            padding: 16px;
-            border: 2px solid #333;
-            font-family: var(--mono);
-            font-size: 13px;
-            margin-top: 20px;
-            border-radius: 4px;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+            background: var(--terminal-bg); color: var(--terminal-text);
+            padding: 16px; border: 2px solid #333;
+            font-family: var(--mono); font-size: 13px; margin-top: 20px;
+            border-radius: 4px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
         }
-        .terminal-sign h3 {
-            color: #a0ffa0;
-            font-family: var(--pixel);
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-        .terminal-prompt {
-            display: flex;
-            align-items: center;
-            margin: 8px 0;
-        }
-        .terminal-prompt span {
-            color: #80ff80;
-            margin-right: 6px;
-        }
+        .terminal-sign h3 { color: #a0ffa0; font-family: var(--pixel); font-size: 18px; margin-bottom: 8px; }
+        .terminal-prompt { display: flex; align-items: center; margin: 8px 0; }
+        .terminal-prompt span { color: #80ff80; margin-right: 6px; }
         .terminal-input {
-            flex: 1;
+            flex: 1; background: transparent; border: none;
+            color: var(--terminal-text); font-family: var(--mono); font-size: 14px;
+            outline: none; caret-color: var(--accent);
+        }
+        .terminal-log { list-style: none; margin-top: 10px; max-height: 160px; overflow-y: auto; }
+        .terminal-log li { padding: 2px 0; border-bottom: 1px solid #333; }
+        /* ── floating artifact buttons (puzzle triggers) ─────────── */
+        .artifact {
+            position: fixed;
+            z-index: 9997;
             background: transparent;
             border: none;
-            color: var(--terminal-text);
-            font-family: var(--mono);
-            font-size: 14px;
-            outline: none;
-            caret-color: var(--accent);
-        }
-        .terminal-log {
-            list-style: none;
-            margin-top: 10px;
-            max-height: 160px;
-            overflow-y: auto;
-        }
-        .terminal-log li {
-            padding: 2px 0;
-            border-bottom: 1px solid #333;
-        }
-        /* rendering artifact: low opacity baseline so it reads as noise, not invitation */
-        .bug-pixel {
-            display: inline-block;
             cursor: pointer;
             font-family: var(--pixel);
-            font-size: 14px;
-            color: var(--ink-soft);
-            opacity: 0.28;
-            margin: 0 3px;
-            animation: bug-flicker 4.5s steps(1) infinite;
-            user-select: none;
-        }
-        .bug-pixel:hover {
-            animation: bug-shake 180ms steps(2) infinite;
+            font-size: 22px;
             color: var(--ink);
-            opacity: 0.6;
+            opacity: 0.2;
+            padding: 5px 7px;
+            border-radius: 2px;
+            user-select: none;
+            transition: opacity 0.18s ease;
+            animation: artifact-flicker 6s steps(1) infinite;
         }
-        @keyframes bug-flicker {
-            0%,
-            65%,
-            78%,
-            100% {
-                opacity: 0.28;
-            }
-            72%,
-            80% {
-                opacity: 0.07;
-            }
+        /* stagger each artifact's flicker so they don't sync */
+        .artifact:nth-child(1) { animation-delay: 0s;    animation-duration: 6.2s; }
+        .artifact:nth-child(2) { animation-delay: 2.1s;  animation-duration: 5.7s; }
+        .artifact:nth-child(3) { animation-delay: 4.4s;  animation-duration: 7.1s; }
+        @keyframes artifact-flicker {
+            0%,60%,80%,100% { opacity: 0.2; }
+            68%  { opacity: 0.04; }
+            74%  { opacity: 0.45; }
+            83%  { opacity: 0.08; }
         }
-        @keyframes bug-shake {
-            0%,
-            100% {
-                transform: translate(0, 0);
-            }
-            25% {
-                transform: translate(-1px, 1px);
-            }
-            50% {
-                transform: translate(1px, -1px);
-            }
-            75% {
-                transform: translate(-2px, 0);
-            }
+        .artifact:hover, .artifact:focus-visible {
+            opacity: 0.85;
+            color: #b87820;   /* amber — distinct from green glitch */
+            animation: artifact-shake 100ms steps(2) infinite;
         }
+        @keyframes artifact-shake {
+            0%,100% { transform: translate(0,0); }
+            33%     { transform: translate(1px,-1px); }
+            66%     { transform: translate(-1px,1px); }
+        }
+        .artifact.vanishing {
+            animation: pixel-collapse 0.5s ease-in forwards;
+            pointer-events: none;
+        }
+        /* ── modal input / button ─────────────────────────────────── */
+        .puzzle-modal-input {
+            width: 100%; font-family: var(--mono); font-size: 14px;
+            padding: 5px 8px; border: 1px solid var(--ink);
+            margin: 8px 0; background: #fffef9; outline: none;
+        }
+        .puzzle-modal-input:focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+        .puzzle-modal-btn {
+            font-family: var(--pixel); background: var(--ink); color: var(--paper);
+            border: none; padding: 4px 14px; cursor: pointer; font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+        .puzzle-modal-btn:hover { background: var(--accent); color: var(--ink); }
+        /* ── modal ────────────────────────────────────────────────── */
         .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 9999;
-            display: none;
-            justify-content: center;
-            align-items: center;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            z-index: 9999; display: none; justify-content: center; align-items: center;
         }
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
         .modal-content {
-            background: var(--paper);
-            border: 2px solid var(--ink);
-            box-shadow: 4px 4px 0 var(--ink), 0 20px 40px rgba(0, 0, 0, 0.4);
-            padding: 20px 24px;
-            max-width: 380px;
-            width: 90%;
-            font-family: var(--mono);
-            font-size: 13px;
-            position: relative;
+            background: var(--paper); border: 2px solid var(--ink);
+            box-shadow: 4px 4px 0 var(--ink), 0 20px 40px rgba(0,0,0,0.4);
+            padding: 20px 24px; max-width: 380px; width: 90%;
+            font-family: var(--mono); font-size: 13px; position: relative;
             animation: fadeIn 0.15s ease;
         }
-        .modal-close {
-            position: absolute;
-            top: 4px;
-            right: 8px;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: var(--ink);
-            font-family: var(--pixel);
-        }
-        .puzzle-modal-input {
-            width: 100%;
-            font-family: var(--mono);
-            font-size: 14px;
-            padding: 4px 8px;
-            border: 1px solid var(--ink);
-            margin: 8px 0;
-            background: #fffef9;
-        }
-        .puzzle-modal-btn {
-            font-family: var(--pixel);
-            background: var(--ink);
-            color: var(--paper);
-            border: none;
-            padding: 4px 12px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .puzzle-modal-btn:hover {
-            background: var(--accent);
-            color: var(--ink);
-        }
+        .modal-close { position: absolute; top: 4px; right: 8px; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--ink); font-family: var(--pixel); }
+        /* ── glitch button ────────────────────────────────────────── */
         .glitch {
-            position: fixed;
-            z-index: 9998;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-family: var(--pixel);
-            font-size: 18px;
-            color: var(--ink);
-            opacity: 0.35;
-            padding: 6px 8px;
-            border-radius: 2px;
-            transition: opacity 0.2s ease, left 1.4s cubic-bezier(0.4, 0.05, 0.2, 1), top 1.4s cubic-bezier(0.4, 0.05, 0.2, 1);
+            position: fixed; z-index: 9998; background: transparent; border: none;
+            cursor: pointer; font-family: var(--pixel); font-size: 18px; color: var(--ink);
+            opacity: 0.35; padding: 6px 8px; border-radius: 2px;
+            transition: opacity 0.2s ease, left 1.4s cubic-bezier(0.4,0.05,0.2,1), top 1.4s cubic-bezier(0.4,0.05,0.2,1);
             user-select: none;
             animation: glitch-flicker 8s steps(1) infinite;
         }
         @keyframes glitch-flicker {
-            0%,
-            92%,
-            94%,
-            96%,
-            100% {
-                opacity: 0.35;
-            }
-            93% {
-                opacity: 0.08;
-            }
-            95% {
-                opacity: 0.6;
-            }
-            97% {
-                opacity: 0.15;
-            }
+            0%,92%,94%,96%,100% { opacity: 0.35; }
+            93% { opacity: 0.08; }
+            95% { opacity: 0.6; }
+            97% { opacity: 0.15; }
         }
-        .glitch:hover,
-        .glitch:focus-visible {
-            opacity: 1;
-            color: var(--accent);
-            animation: shake 90ms steps(2) infinite;
-        }
+        .glitch:hover, .glitch:focus-visible { opacity: 1; color: var(--accent); animation: shake 90ms steps(2) infinite; }
         @keyframes shake {
-            0%,
-            100% {
-                transform: translate(0, 0);
-            }
-            25% {
-                transform: translate(-1.5px, -1px);
-            }
-            50% {
-                transform: translate(1.5px, 1.5px);
-            }
-            75% {
-                transform: translate(-1px, 1.5px);
-            }
+            0%,100% { transform: translate(0,0); }
+            25% { transform: translate(-1.5px,-1px); }
+            50% { transform: translate(1.5px,1.5px); }
+            75% { transform: translate(-1px,1.5px); }
         }
-        .glitch.vanishing {
-            animation: pixel-collapse 0.5s ease-in forwards;
-            pointer-events: none;
-        }
+        .glitch.vanishing { animation: pixel-collapse 0.5s ease-in forwards; pointer-events: none; }
         @keyframes pixel-collapse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-                filter: brightness(1);
-            }
-            60% {
-                transform: scale(0.3);
-                opacity: 0.4;
-                filter: brightness(3);
-                color: var(--accent);
-            }
-            100% {
-                transform: scale(0);
-                opacity: 0;
-                filter: brightness(0);
-                color: var(--accent);
-            }
+            0%  { transform: scale(1); opacity: 1; filter: brightness(1); }
+            60% { transform: scale(0.3); opacity: 0.4; filter: brightness(3); color: var(--accent); }
+            100%{ transform: scale(0); opacity: 0; filter: brightness(0); color: var(--accent); }
         }
+        /* ── statusbar / chin ─────────────────────────────────────── */
         .statusbar {
-            height: 18px;
-            border-top: 1px solid var(--ink);
-            background: var(--paper-2);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 10px;
-            font-family: var(--pixel);
-            font-size: 13px;
-            color: var(--ink-soft);
+            height: 18px; border-top: 1px solid var(--ink); background: var(--paper-2);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 10px; font-family: var(--pixel); font-size: 13px; color: var(--ink-soft);
         }
         .chin {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 4px 18px;
-            color: var(--case-ink);
-            font-family: var(--pixel);
-            font-size: 15px;
-            letter-spacing: 1.2px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 4px 18px; color: var(--case-ink);
+            font-family: var(--pixel); font-size: 15px; letter-spacing: 1.2px;
         }
-        .chin .label {
-            font-style: italic;
-            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
-        }
+        .chin .label { font-style: italic; text-shadow: 0 1px 0 rgba(255,255,255,0.4); }
         .floppy {
-            width: 46px;
-            height: 12px;
+            width: 46px; height: 12px;
             background: linear-gradient(180deg, var(--bezel-2), var(--bezel-1));
-            border: 1px solid #4a4540;
-            border-radius: 1px;
-            position: relative;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+            border: 1px solid #4a4540; border-radius: 1px; position: relative;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.5);
         }
         .floppy::before {
-            content: '';
-            position: absolute;
-            left: 6px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 30px;
-            height: 2px;
-            background: #0a0a0a;
-            border-radius: 1px;
+            content: ''; position: absolute; left: 6px; top: 50%; transform: translateY(-50%);
+            width: 30px; height: 2px; background: #0a0a0a; border-radius: 1px;
         }
+        /* ── drag overlay ─────────────────────────────────────────── */
         .drag-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 10000;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-family: var(--pixel);
-            font-size: 24px;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s;
+            position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.5);
+            display: flex; justify-content: center; align-items: center;
+            color: white; font-family: var(--pixel); font-size: 24px;
+            pointer-events: none; opacity: 0; transition: opacity 0.3s;
         }
-        .drag-overlay.show {
-            opacity: 1;
-        }
-        .page {
-            display: none;
-        }
-        .page.active {
-            display: block;
-            animation: fadeIn 0.2s ease;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        .h-card-hidden {
-            display: none;
-        }
-        ::selection {
-            background: var(--ink);
-            color: var(--paper);
-        }
-        @media (max-width: 560px) {
-            body {
-                padding: 12px 8px;
-            }
-            .mac {
-                padding: 14px 14px 0;
-                border-radius: 14px 14px 18px 18px;
-            }
-            .bezel {
-                padding: 10px;
-            }
-            .screen {
-                min-height: 500px;
-            }
-            .window {
-                margin: 6px;
-            }
-            .body {
-                padding: 16px 14px 12px;
-                font-size: 12.5px;
-            }
-            .hero {
-                font-size: 26px;
-                min-height: 30px;
-            }
-            .nav {
-                font-size: 13px;
-            }
-            .row {
-                grid-template-columns: 78px 1fr;
-                gap: 10px;
-            }
-            .row .tag {
-                display: none;
-            }
-            .modal-content {
-                padding: 14px 16px;
-            }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .caret,
-            .glitch,
-            .bug-pixel {
-                animation: none;
-            }
-            .crt-shutdown,
-            .crt-startup,
-            .glitch.vanishing {
-                animation: none;
-            }
-        }
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-            .mac,
-            .bezel,
-            .window {
-                box-shadow: none;
-                border: none;
-                background: white;
-            }
-            .vents,
-            .chin,
-            .menubar,
-            .titlebar,
-            .statusbar,
-            .glitch,
-            .nav,
-            .modal-overlay {
-                display: none;
-            }
-            .body {
-                overflow: visible;
-            }
-            .page {
-                display: block !important;
-            }
-            .book-thoughts {
-                display: block !important;
-            }
-        }
-
-        /* ── PUZZLE TERMINAL ─────────────────────────────────────────────────── */
-        /* mirrors .terminal-sign; lives inside the dark CRT shell               */
+        .drag-overlay.show { opacity: 1; }
+        /* ── pages ────────────────────────────────────────────────── */
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.2s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .h-card-hidden { display: none; }
+        ::selection { background: var(--ink); color: var(--paper); }
+        /* ── puzzle terminal ──────────────────────────────────────── */
         .terminal-puzzle {
-            background: var(--terminal-bg);
-            color: var(--terminal-text);
-            padding: 16px;
-            border: 2px solid #333;
-            font-family: var(--mono);
-            font-size: 13px;
-            margin-top: 8px;
-            border-radius: 4px;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+            background: var(--terminal-bg); color: var(--terminal-text);
+            padding: 16px; border: 2px solid #333;
+            font-family: var(--mono); font-size: 13px;
+            margin-top: 8px; border-radius: 4px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
         }
-        .terminal-puzzle h3 {
-            color: #a0ffa0;
-            font-family: var(--pixel);
-            font-size: 18px;
-            margin-bottom: 10px;
-            letter-spacing: 0.5px;
-        }
-        .lede {
-            font-size: 11.5px;
-            color: #70a070;
-            line-height: 1.65;
-            margin-bottom: 14px;
-        }
-        .lede em {
-            color: #90c090;
-            font-style: normal;
-        }
+        .terminal-puzzle h3 { color: #a0ffa0; font-family: var(--pixel); font-size: 18px; margin-bottom: 10px; letter-spacing: 0.5px; }
+        .lede { font-size: 11.5px; color: #70a070; line-height: 1.65; margin-bottom: 14px; }
         .puzzle-math {
-            font-family: var(--mono);
-            font-size: 12px;
-            color: #608060;
-            background: rgba(0, 0, 0, 0.35);
-            padding: 8px 12px;
-            margin: 10px 0;
-            border-left: 2px solid #2a5a2a;
-            white-space: pre;
-            letter-spacing: 0.04em;
-            line-height: 1.5;
+            font-family: var(--mono); font-size: 12px; color: #608060;
+            background: rgba(0,0,0,0.35); padding: 8px 12px; margin: 10px 0;
+            border-left: 2px solid #2a5a2a; white-space: pre;
+            letter-spacing: 0.04em; line-height: 1.5;
         }
-        /* the canvas lives here — intrinsic size set via JS on first paint */
         .matrix-stage {
-            width: 100%;
-            height: 220px;
-            display: block;
-            margin: 10px 0;
-            border: 1px solid #2a2a2a;
-            border-radius: 2px;
-            background: #111;
+            width: 100%; height: 220px; display: block; margin: 10px 0;
+            border: 1px solid #2a2a2a; border-radius: 2px; background: #111;
         }
         .puzzle-readout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4px 16px;
-            margin: 10px 0;
-            padding: 8px 0;
-            border-top: 1px solid #2a2a2a;
-            border-bottom: 1px solid #2a2a2a;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px;
+            margin: 10px 0; padding: 8px 0;
+            border-top: 1px solid #2a2a2a; border-bottom: 1px solid #2a2a2a;
         }
-        .k {
-            color: #507050;
-            font-size: 11px;
-            font-family: var(--mono);
-            letter-spacing: 0.03em;
-        }
-        .v {
-            color: var(--terminal-text);
-            font-family: var(--mono);
-            font-size: 12px;
-            letter-spacing: 0.02em;
-        }
-        /* recoverability states — semantically meaningful, not decorative */
+        .k { color: #507050; font-size: 11px; font-family: var(--mono); letter-spacing: 0.03em; }
+        .v { color: var(--terminal-text); font-family: var(--mono); font-size: 12px; letter-spacing: 0.02em; }
         .highlight { color: var(--accent) !important; }
         .warning   { color: var(--danger)  !important; }
-        .puzzle-input-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 12px 0 6px;
-            flex-wrap: wrap;
-        }
-        .puzzle-input-group label {
-            color: #70a070;
-            font-family: var(--mono);
-            font-size: 12px;
-            min-width: 10px;
-        }
+        .puzzle-input-group { display: flex; align-items: center; gap: 8px; margin: 12px 0 6px; flex-wrap: wrap; }
+        .puzzle-input-group label { color: #70a070; font-family: var(--mono); font-size: 12px; min-width: 10px; }
         .matrix-input {
-            width: 54px;
-            background: #0a0a0a;
-            border: 1px solid #3a3a3a;
-            color: var(--terminal-text);
-            font-family: var(--mono);
-            font-size: 13px;
-            padding: 3px 6px;
-            text-align: center;
-            -moz-appearance: textfield;
+            width: 54px; background: #0a0a0a; border: 1px solid #3a3a3a;
+            color: var(--terminal-text); font-family: var(--mono); font-size: 13px;
+            padding: 3px 6px; text-align: center; -moz-appearance: textfield;
         }
-        .matrix-input::-webkit-inner-spin-button,
-        .matrix-input::-webkit-outer-spin-button { -webkit-appearance: none; }
-        .matrix-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 1px var(--accent);
-        }
-        .kbd-hints {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            font-size: 10.5px;
-            color: #3a5a3a;
-            margin: 4px 0 10px;
-            user-select: none;
-        }
-        .kbd-hints kbd {
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 2px;
-            padding: 0 4px;
-            font-family: var(--mono);
-            font-size: 10px;
-            color: #609060;
-        }
+        .matrix-input::-webkit-inner-spin-button, .matrix-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+        .matrix-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+        .kbd-hints { display: flex; gap: 14px; flex-wrap: wrap; font-size: 10.5px; color: #3a5a3a; margin: 4px 0 10px; user-select: none; }
+        .kbd-hints kbd { background: #111; border: 1px solid #333; border-radius: 2px; padding: 0 4px; font-family: var(--mono); font-size: 10px; color: #609060; }
         .btn {
-            font-family: var(--pixel);
-            background: #111;
-            color: #609060;
-            border: 1px solid #3a3a3a;
-            padding: 3px 12px;
-            cursor: pointer;
-            font-size: 13px;
-            letter-spacing: 0.5px;
+            font-family: var(--pixel); background: #111; color: #609060;
+            border: 1px solid #3a3a3a; padding: 3px 12px; cursor: pointer;
+            font-size: 13px; letter-spacing: 0.5px;
             transition: background 80ms, color 80ms, border-color 80ms;
         }
-        .btn:hover {
-            background: var(--accent);
-            color: var(--ink);
-            border-color: var(--accent);
-        }
-        .btn:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
+        .btn:hover { background: var(--accent); color: var(--ink); border-color: var(--accent); }
+        .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
         .puzzle-reward {
-            display: none;
-            margin-top: 14px;
-            padding: 10px 12px;
-            border: 1px solid #2a5a2a;
-            background: rgba(0, 50, 15, 0.4);
-            font-size: 11.5px;
-            color: var(--terminal-text);
-            line-height: 1.75;
+            display: none; margin-top: 14px; padding: 10px 12px;
+            border: 1px solid #2a5a2a; background: rgba(0,50,15,0.4);
+            font-size: 11.5px; color: var(--terminal-text); line-height: 1.75;
             font-family: var(--mono);
         }
         .puzzle-reward a { color: #80c080; }
+        /* ── responsive ───────────────────────────────────────────── */
         @media (max-width: 560px) {
+            body { padding: 12px 8px; }
+            .mac { padding: 14px 14px 0; border-radius: 14px 14px 18px 18px; }
+            .bezel { padding: 10px; }
+            .screen { min-height: 500px; }
+            .window { margin: 6px; }
+            .body { padding: 16px 14px 12px; font-size: 12.5px; }
+            .hero { font-size: 26px; min-height: 30px; }
+            .nav { font-size: 13px; }
+            .row { grid-template-columns: 78px 1fr; gap: 10px; }
+            .row .tag { display: none; }
+            .modal-content { padding: 14px 16px; }
             .puzzle-readout { grid-template-columns: 1fr; }
             .matrix-stage { height: 160px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .caret, .glitch { animation: none; }
+            .crt-shutdown, .crt-startup, .glitch.vanishing { animation: none; }
+        }
+        @media print {
+            body { background: white; padding: 0; }
+            .mac, .bezel, .window { box-shadow: none; border: none; background: white; }
+            .vents, .chin, .menubar, .titlebar, .statusbar, .glitch, .nav, .modal-overlay { display: none; }
+            .body { overflow: visible; }
+            .page { display: block !important; }
+            .book-thoughts { display: block !important; }
         }
     </style>
 </head>
@@ -1011,7 +501,7 @@
     <div class="h-card-hidden h-card">
         <span class="p-name">Hannan Nabi</span>
         <a class="u-url" href="https://nah.hannan/">https://nah.hannan/</a>
-        <span class="p-note">notes on systems, probability, and a few things in between</span>
+        <span class="p-note">msc finance student. building things to understand them.</span>
     </div>
     <main class="mac">
         <div class="vents" aria-hidden="true">
@@ -1036,7 +526,7 @@
                     <nav class="nav" id="nav" aria-label="Main Navigation"></nav>
                     <div class="body" id="body">
                         <h1 class="hero" aria-live="polite"><span class="typed" id="typed"></span><span class="caret" aria-hidden="true"></span></h1>
-                        <p class="tagline">systems, probability, signal processing, the occasional small experiment</p>
+                        <p class="tagline" id="tagline">finance, statistics, and code. mostly figuring things out.</p>
                         <div class="page active" id="page-notes"></div>
                         <div class="page" id="page-research"></div>
                         <div class="page" id="page-essays"></div>
@@ -1058,883 +548,626 @@
             <div id="modalBody"></div>
         </div>
     </div>
-    <div class="drag-overlay" id="dragOverlay">▒ instabilities settled — moving on</div>
+    <div class="drag-overlay" id="dragOverlay">challenges cleared — heading to sign-in</div>
 
     <script>
-        (() => {
-            const $ = id => document.getElementById(id);
-            const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    (() => {
+        const $ = id => document.getElementById(id);
+        const esc = s => String(s).replace(/[&<>"']/g, c =>
+            ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-            // ---------- SAFE STORAGE ----------
-            function safeGet(k, fallback) {
-                try { const v = localStorage.getItem(k); return v !== null ? v : fallback; } catch (e) { return fallback; }
-            }
+        // ── safe storage ──────────────────────────────────────────────
+        function safeGet(k, fb)   { try { const v = localStorage.getItem(k); return v !== null ? v : fb; } catch(e) { return fb; } }
+        function safeSet(k, v)    { try { localStorage.setItem(k, v); } catch(e) {} }
+        function safeGetJSON(k, fb) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fb; } catch(e) { return fb; } }
+        function safeSetJSON(k, v)  { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} }
 
-            function safeSet(k, v) {
-                try { localStorage.setItem(k, v); } catch (e) { /* quota exceeded or private mode */ }
-            }
+        // ── state ─────────────────────────────────────────────────────
+        const PUZZLE_KEY  = 'nah_hannan_puzzle_solved';
+        const CHALL_KEY   = 'nah_challenges_solved';
+        const SIGN_KEY    = 'nah_hannan_sign_space';
+        const SOURCE_KEY  = 'nah_hannan_source_found';
 
-            function safeGetJSON(k, fallback) {
-                try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; }
-            }
+        let puzzleSolved       = safeGet(PUZZLE_KEY, 'false') === 'true';
+        let challengesSolved   = safeGetJSON(CHALL_KEY, {});
+        let sourcePuzzleSolved = safeGet(SOURCE_KEY, 'false') === 'true';
+        let glitchInterval     = null;
 
-            function safeSetJSON(k, v) {
-                try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* quota exceeded or private mode */ }
-            }
-
-            // ---------- STATE ----------
-            const STORAGE_KEY = 'nah_hannan_puzzle_solved';
-            const BUGS_KEY = 'nah_tiny_bugs_solved';
-            const SIGN_KEY = 'nah_hannan_sign_space';
-
-            let puzzleSolved = safeGet(STORAGE_KEY, 'false') === 'true';
-            let tinyBugsSolved = safeGetJSON(BUGS_KEY, {});
-
-            // Puzzle 3 state — unlocked by reading source and entering the right equation
-            const SOURCE_KEY = 'nah_hannan_source_found';
-            let sourcePuzzleSolved = safeGet(SOURCE_KEY, 'false') === 'true';
-
-            // closure-scoped so markSolved can cancel it without touching window
-            let glitchInterval = null;
-
-            // ---------- Shared ResizeObserver (created once) ----------
-            let svdResizeObserver = null;
-            let svdRedrawPending = null;
-
-            function ensureObserver(canvas) {
-                if (!canvas) return;
-                if (!svdResizeObserver) {
-                    svdResizeObserver = new ResizeObserver(() => {
-                        if (svdRedrawPending) cancelAnimationFrame(svdRedrawPending);
-                        svdRedrawPending = requestAnimationFrame(updateSVD);
-                    });
-                }
-                svdResizeObserver.observe(canvas);
-            }
-
-            function disconnectObserver() {
-                if (svdResizeObserver) {
-                    svdResizeObserver.disconnect();
-                }
-            }
-
-            // ---------- SOLVE HANDLERS ----------
-            function markSolved() {
-                if (puzzleSolved) return;
-                puzzleSolved = true;
-                safeSet(STORAGE_KEY, 'true');
-                const g = $('glitch');
-                if (!g) return;
-                g.classList.add('vanishing');
-                g.addEventListener('animationend', () => { if (g.parentNode) g.remove(); }, { once: true });
-                if (glitchInterval) { clearTimeout(glitchInterval); glitchInterval = null; }
-            }
-
-            function markBugSolved(bugId) {
-                tinyBugsSolved[bugId] = true;
-                safeSetJSON(BUGS_KEY, tinyBugsSolved);
-                const count = Object.keys(tinyBugsSolved).filter(k => tinyBugsSolved[k]).length;
-                if (count === 2) {
-                    const overlay = $('dragOverlay');
-                    if (overlay) {
-                        overlay.classList.add('show');
-                        setTimeout(() => { overlay.classList.remove('show');
-                            transitionToPage('sign'); }, 1800);
-                    }
-                } else if (count === 3) {
-                    const modal = $('puzzleModal'),
-                        body = $('modalBody');
-                    body.innerHTML = '<p>three instabilities, all settled.</p><p>nothing seems to be flickering now.</p>';
-                    modal.classList.add('active');
-                    setTimeout(() => modal.classList.remove('active'), 3000);
-                }
-            }
-
-            // ---------- DATA: BOOKS ----------
-            const books = [
-                { title: 'Probability Theory: The Logic of Science', author: 'E.T. Jaynes', cat: 'Probability & Statistical Inference', thoughts: 'Probability as information and ignorance, not dice. Reading it shifted how I think about almost everything statistical, though I\'m still working through some of the later chapters.' },
-                { title: 'Bayesian Data Analysis', author: 'Gelman, Carlin, Stern, Rubin', cat: 'Probability & Statistical Inference', thoughts: 'The book I open when I actually have to compute something. Jaynes gave me the picture; this gave me the machinery.' },
-                { title: 'Statistical Rethinking', author: 'Richard McElreath', cat: 'Probability & Statistical Inference', thoughts: 'McElreath writes the way a patient teacher talks. He sneaks causal reasoning in early, which most stats books still don\'t do.' },
-                { title: 'All of Statistics', author: 'Larry Wasserman', cat: 'Probability & Statistical Inference', thoughts: 'Compressed almost to a fault. A useful second book, less so a first.' },
-                { title: 'Statistical Inference', author: 'Casella & Berger', cat: 'Probability & Statistical Inference', thoughts: 'The standard grad text, and rightly so. The sufficiency and likelihood-principle chapters are the parts I\'ve gone back to most often.' },
-                { title: 'An Introduction to Probability Theory', author: 'William Feller', cat: 'Probability & Statistical Inference', thoughts: 'Volume I in particular. Feller seems to enjoy generating functions, and you start to as well.' },
-                { title: 'Elements of Information Theory', author: 'Cover & Thomas', cat: 'Probability & Statistical Inference', thoughts: 'Where probability and computation start sharing notation. Entropy, mutual information, AEP — most of modern ML is downstream of these ideas.' },
-                { title: 'Probability with Martingales', author: 'David Williams', cat: 'Probability & Statistical Inference', thoughts: 'Short, precise, occasionally funny. The footnotes are worth reading.' },
-                { title: 'Probability and Random Processes', author: 'Grimmett & Stirzaker', cat: 'Probability & Statistical Inference', thoughts: 'Wide-ranging without trying to be a brick. The exercises are unusually well chosen.' },
-                { title: 'Theory of Point Estimation', author: 'Lehmann & Casella', cat: 'Probability & Statistical Inference', thoughts: 'Rigorous in the way that becomes useful later. Worth coming back to once you\'ve built up enough scar tissue.' },
-                { title: 'Linear Algebra and Its Applications', author: 'Gilbert Strang', cat: 'Mathematics', thoughts: 'Strang teaches it as geometry first. The SVD chapters are the reason the little widget at the bottom of this site exists.' },
-                { title: 'Linear Algebra Done Right', author: 'Sheldon Axler', cat: 'Mathematics', thoughts: 'Determinants get pushed to the last chapter, and by the time you arrive you understand why he did that.' },
-                { title: 'Principles of Mathematical Analysis', author: 'Walter Rudin', cat: 'Mathematics', thoughts: 'Baby Rudin. Terse, elegant, hard. You don\'t exactly read it so much as work through it slowly, and a lot of analysis feels more approachable afterwards.' },
-                { title: 'Visual Complex Analysis', author: 'Tristan Needham', cat: 'Mathematics', thoughts: 'Picks geometry where most books pick algebra. Worth reading even if you already know the material.' },
-                { title: 'Convex Optimization', author: 'Boyd & Vandenberghe', cat: 'Mathematics', thoughts: 'Boyd has an eye for spotting when something is secretly convex. That skill is more transferable than it sounds.' },
-                { title: 'Numerical Linear Algebra', author: 'Trefethen & Bau', cat: 'Mathematics', thoughts: 'Short, careful, full of the right intuitions about conditioning and stability. I reread the SVD chapters every year or two.' },
-                { title: 'Concrete Mathematics', author: 'Graham, Knuth, Patashnik', cat: 'Mathematics', thoughts: 'Continuous and discrete in the same breath. Grew out of the margins of TAOCP, and reads like that — playful in a precise way.' },
-                { title: 'Vector Calculus', author: 'Hubbard & Hubbard', cat: 'Mathematics', thoughts: 'Bundles linear algebra and multivariable calculus together, and after enough chapters you notice that Green\'s, Stokes\', and the divergence theorem are pretty much one theorem.' },
-                { title: 'Algebra', author: 'Michael Artin', cat: 'Mathematics', thoughts: 'Artin leans on symmetry and geometry. The group theory and Galois chapters are the ones I think about most.' },
-                { title: 'The Calculus Lifesaver', author: 'Adrian Banner', cat: 'Mathematics', thoughts: 'A TA\'s lecture notes that turned into a book. You can tell he\'s explained epsilon-deltas more than a few times.' },
-                { title: 'Pattern Recognition and Machine Learning', author: 'Christopher Bishop', cat: 'Machine Learning & AI', thoughts: 'The Bayesian-leaning ML text. The graphical models and variational inference chapters still hold up.' },
-                { title: 'Machine Learning: A Probabilistic Perspective', author: 'Kevin Murphy', cat: 'Machine Learning & AI', thoughts: 'Wide-ranging without going thin. Useful as a reference for almost any probabilistic model you might want to look up.' },
-                { title: 'Deep Learning', author: 'Goodfellow, Bengio, Courville', cat: 'Machine Learning & AI', thoughts: 'Already a bit of a period piece, but Part III aged interestingly — the representation-learning sections still shape how I think about latent spaces.' },
-                { title: 'Reinforcement Learning: An Introduction', author: 'Sutton & Barto', cat: 'Machine Learning & AI', thoughts: 'They\'ve been refining this book since 1998 and you can feel it. The TD-learning and eligibility-traces chapters are the parts I\'ve reread.' },
-                { title: 'The Elements of Statistical Learning', author: 'Hastie, Tibshirani, Friedman', cat: 'Machine Learning & AI', thoughts: 'Better as a second book than a first. You get more from it after you\'ve already built a few models that worked, or didn\'t.' },
-                { title: 'Information Theory, Inference, and Learning Algorithms', author: 'David MacKay', cat: 'Machine Learning & AI', thoughts: 'MacKay clearly enjoyed writing it. Information theory, Bayesian inference, and neural networks treated as one subject, which they more or less are.' },
-                { title: 'Probabilistic Graphical Models', author: 'Koller & Friedman', cat: 'Machine Learning & AI', thoughts: 'Long, but rewarding. The structure-learning and causality chapters still feel relevant.' },
-                { title: 'Understanding Machine Learning', author: 'Shalev-Shwartz & Ben-David', cat: 'Machine Learning & AI', thoughts: 'A friendly introduction to PAC learning. The bias-complexity and VC dimension chapters are the clearest I know.' },
-                { title: 'Understanding Deep Learning', author: 'Simon Prince', cat: 'Machine Learning & AI', thoughts: 'A 2023 book that already feels like the one to start with. Rebuilds the field from first principles, with a probabilistic eye.' },
-                { title: 'Gaussian Processes for Machine Learning', author: 'Rasmussen & Williams', cat: 'Machine Learning & AI', thoughts: 'The GP book. Elegant and practical at the same time. The chapters on designing covariance functions are quietly excellent.' },
-                { title: 'Thinking in Systems', author: 'Donella Meadows', cat: 'Systems & Complexity', thoughts: 'The clearest small book about why most well-intentioned fixes don\'t work. Leverage points are almost never where they look like they should be.' },
-                { title: 'Complexity: A Guided Tour', author: 'Melanie Mitchell', cat: 'Systems & Complexity', thoughts: 'A tour through the Santa Fe lineage. Emergence, self-organisation, and scaling laws, explained without too much hand-waving.' },
-                { title: 'Systemantics', author: 'John Gall', cat: 'Systems & Complexity', thoughts: 'Gall\'s law — a complex system that works has almost always grown out of a simpler one that worked — is one of those things you keep finding new instances of.' },
-                { title: 'The Mythical Man-Month', author: 'Fred Brooks', cat: 'Systems & Complexity', thoughts: 'Written about OS/360 in 1975 and somehow still the most honest book about software. "Adding manpower to a late project makes it later" turns out to be approximately a law of nature.' },
-                { title: 'A Philosophy of Software Design', author: 'John Ousterhout', cat: 'Systems & Complexity', thoughts: 'Compact, opinionated, mostly right. The case for deep modules is the part I think about most.' },
-                { title: 'Designing Data-Intensive Applications', author: 'Martin Kleppmann', cat: 'Systems & Complexity', thoughts: 'Helps you see that most of your database choices are actually consistency-versus-availability choices in disguise.' },
-                { title: 'The Sciences of the Artificial', author: 'Herbert Simon', cat: 'Systems & Complexity', thoughts: 'Simon takes the idea of "designing something" seriously, in a way that\'s easy to miss. The chapters on bounded rationality and on the architecture of complexity are the ones I keep returning to.' },
-                { title: 'Gödel, Escher, Bach', author: 'Douglas Hofstadter', cat: 'Systems & Complexity', thoughts: 'Self-reference and strange loops. I\'ve read it three times across about fifteen years, and got something different each time.' },
-                { title: 'Steps to an Ecology of Mind', author: 'Gregory Bateson', cat: 'Systems & Complexity', thoughts: 'Bateson was thinking about cybernetics, ecology, and epistemology together long before the conversation caught up to him.' },
-                { title: 'The Quark and the Jaguar', author: 'Murray Gell-Mann', cat: 'Systems & Complexity', thoughts: 'A physicist\'s long, slightly meandering meditation on simplicity and complexity. The idea of "plectics" still hasn\'t caught on, but it\'s a good one.' },
-                { title: 'Options, Futures, and Other Derivatives', author: 'John C. Hull', cat: 'Economics & Finance', thoughts: 'The industry standard for a reason. Methodical, occasionally dry, but rarely confusing.' },
-                { title: 'Stochastic Calculus for Finance', author: 'Steven Shreve', cat: 'Economics & Finance', thoughts: 'Two volumes. The first builds the discrete-time picture carefully, and the second carries it into continuous time without losing the thread.' },
-                { title: 'Paul Wilmott on Quantitative Finance', author: 'Paul Wilmott', cat: 'Economics & Finance', thoughts: 'Wilmott never forgets that a model is a model. His scepticism about over-mathematising finance reads well, especially in retrospect.' },
-                { title: 'The Black Swan', author: 'Nassim Nicholas Taleb', cat: 'Economics & Finance', thoughts: 'The core point — that rare events do most of the heavy lifting — is more important than the prose around it sometimes suggests.' },
-                { title: 'Antifragile', author: 'Nassim Nicholas Taleb', cat: 'Economics & Finance', thoughts: 'The idea that some systems get stronger under volatility is the kind of thing that\'s useful even when you set the rest of the framing aside.' },
-                { title: 'Fooled by Randomness', author: 'Nassim Nicholas Taleb', cat: 'Economics & Finance', thoughts: 'Taleb\'s first and most personal book. The point about how easily we confuse luck with skill is more felt here than later.' },
-                { title: 'The Signal and the Noise', author: 'Nate Silver', cat: 'Economics & Finance', thoughts: 'A practitioner\'s tour of forecasting under uncertainty. The case studies are where the Bayesian thinking actually shows up.' },
-                { title: 'Against the Gods: The Remarkable Story of Risk', author: 'Peter Bernstein', cat: 'Economics & Finance', thoughts: 'A history of how we learned to quantify uncertainty. Pascal through Markowitz, told as a story.' },
-                { title: 'The Misbehavior of Markets', author: 'Mandelbrot & Hudson', cat: 'Economics & Finance', thoughts: 'Mandelbrot makes the case that markets are wilder than the gaussian assumptions allow. The fractal view is a useful corrective even where it overreaches.' },
-                { title: 'Inequality: A Genetic History', author: 'Carles Lalueza-Fox', cat: 'Economics & Finance', thoughts: 'Not really about economics, but about the long history of inequality as it shows up in our DNA. A slightly odd inclusion here, but it stuck with me.' },
-                { title: 'Philosophical Investigations', author: 'Ludwig Wittgenstein', cat: 'Philosophy', thoughts: 'The later Wittgenstein, taking apart the earlier one. Meaning as use rather than reference, which is a smaller and stranger claim than it first sounds.' },
-                { title: 'The Structure of Scientific Revolutions', author: 'Thomas Kuhn', cat: 'Philosophy', thoughts: 'Kuhn gave us "paradigm shift" and then spent decades explaining that people had taken it the wrong way. Both halves of that are interesting.' },
-                { title: 'The Logic of Scientific Discovery', author: 'Karl Popper', cat: 'Philosophy', thoughts: 'Falsifiability as the line between science and not-science. Tidy and not entirely true, but a good thing to argue with.' },
-                { title: 'Against Method', author: 'Paul Feyerabend', cat: 'Philosophy', thoughts: 'Feyerabend argues that there isn\'t one "scientific method" so much as a collection of moves that happened to work. Frustrating in places, useful in others.' },
-                { title: 'Darwin\'s Dangerous Idea', author: 'Daniel Dennett', cat: 'Philosophy', thoughts: 'Natural selection as a "universal acid" that eats through everything it touches. Whether you buy that or not, the argument is fun to follow.' },
-                { title: 'Pragmatism', author: 'William James', cat: 'Philosophy', thoughts: 'James on the idea that a belief\'s meaning is in its consequences. A model is true to the extent it helps you find your way around.' },
-                { title: 'We Have Never Been Modern', author: 'Bruno Latour', cat: 'Philosophy', thoughts: 'Latour dissolves the line between nature and culture in a way that\'s harder to dismiss than you might expect.' },
-                { title: 'The Open Society and Its Enemies', author: 'Karl Popper', cat: 'Philosophy', thoughts: 'A defense of liberal democracy that reads, underneath, like systems thinking applied to politics.' },
-                { title: 'What Is It Like to Be a Bat?', author: 'Thomas Nagel', cat: 'Philosophy', thoughts: 'A short paper that started a long argument. Subjective experience refuses to sit still for objective description.' },
-                { title: 'Superintelligence', author: 'Nick Bostrom', cat: 'Philosophy', thoughts: 'You don\'t have to agree with the conclusions to find the orthogonality and instrumental-convergence ideas worth thinking about.' },
-                { title: 'The Human Condition', author: 'Hannah Arendt', cat: 'Political Theory', thoughts: 'Arendt\'s split between labour, work, and action is a frame I find myself coming back to when thinking about automation.' },
-                { title: 'A Theory of Justice', author: 'John Rawls', cat: 'Political Theory', thoughts: 'The veil of ignorance is one of those thought experiments that\'s simpler than it looks and more demanding than it sounds.' },
-                { title: 'Anarchy, State, and Utopia', author: 'Robert Nozick', cat: 'Political Theory', thoughts: 'Nozick\'s libertarian reply to Rawls. The Wilt Chamberlain example does more work than its length suggests.' },
-                { title: 'Discipline and Punish', author: 'Michel Foucault', cat: 'Political Theory', thoughts: 'Foucault on power as productive and diffuse, not just repressive. Changed how I read institutions, including the ones I work inside.' },
-                { title: 'The Concept of the Political', author: 'Carl Schmitt', cat: 'Political Theory', thoughts: 'The friend/enemy distinction is uncomfortable to sit with, which is part of why it\'s analytically useful.' },
-                { title: 'Two Concepts of Liberty', author: 'Isaiah Berlin', cat: 'Political Theory', thoughts: 'Negative versus positive liberty. A short essay that quietly resolves a lot of arguments.' },
-                { title: 'On Tyranny', author: 'Timothy Snyder', cat: 'Political Theory', thoughts: 'Twenty short lessons from the twentieth century, applied to the twenty-first. The one about defending institutions has aged the most quickly.' },
-                { title: 'The Origins of Totalitarianism', author: 'Hannah Arendt', cat: 'Political Theory', thoughts: 'Arendt on how totalitarian movements feed on loneliness and atomisation. Not exactly comforting reading.' },
-                { title: 'Capital and Ideology', author: 'Thomas Piketty', cat: 'Political Theory', thoughts: 'A sprawl of a follow-up. The historical data on inequality is the part that stuck with me, more than the prescriptions.' },
-                { title: 'Seeing Like a State', author: 'James C. Scott', cat: 'Political Theory', thoughts: 'Scott on why top-down planning fails: it can\'t see the local, tacit knowledge it\'s standing on. Reads almost like a critique of over-engineered software.' },
-                { title: 'Structure and Interpretation of Computer Programs', author: 'Abelson & Sussman', cat: 'Software & Programming', thoughts: 'Computer science presented as managing complexity through abstraction. I think every programmer should read it; most won\'t. That\'s probably okay.' },
-                { title: 'The Pragmatic Programmer', author: 'Hunt & Thomas', cat: 'Software & Programming', thoughts: 'Two decades of software lessons compressed into something close to a checklist. "Don\'t live with broken windows" is one I find myself repeating to other people.' },
-                { title: 'Refactoring', author: 'Martin Fowler', cat: 'Software & Programming', thoughts: 'Fowler catalogues code smells and the moves to fix them with the patience of a fieldworker.' },
-                { title: 'Clean Code', author: 'Robert C. Martin', cat: 'Software & Programming', thoughts: 'A little dogmatic in places, but the underlying instincts are right. Names should mean things. Functions should do one thing.' },
-                { title: 'Domain-Driven Design', author: 'Eric Evans', cat: 'Software & Programming', thoughts: 'Evans\' point that domain complexity is usually the real complexity is one I\'ve come around to over time.' },
-                { title: 'Design Patterns', author: 'Gamma, Helm, Johnson, Vlissides', cat: 'Software & Programming', thoughts: 'The Gang of Four book. Some patterns have aged better than others; the real contribution is that design now has a vocabulary at all.' },
-                { title: 'The C Programming Language', author: 'Kernighan & Ritchie', cat: 'Software & Programming', thoughts: 'The book the operating systems sit on top of. K&R C still reads cleanly, which is its own kind of compliment.' },
-                { title: 'Hackers & Painters', author: 'Paul Graham', cat: 'Software & Programming', thoughts: 'Essays on programming and startups. Worth reading even where you disagree, which I sometimes do.' },
-                { title: 'The Art of UNIX Programming', author: 'Eric S. Raymond', cat: 'Software & Programming', thoughts: 'The UNIX philosophy laid out plainly — do one thing well, use text streams, compose. The principles outlive the original context.' },
-                { title: 'Software Architecture for Developers', author: 'Simon Brown', cat: 'Software & Programming', thoughts: 'Brown\'s C4 model is the most practical tool I\'ve found for actually communicating system design to other people.' },
-                { title: 'The Age of Surveillance Capitalism', author: 'Shoshana Zuboff', cat: 'Cybertech & Internet', thoughts: 'Zuboff on how human experience got turned into a raw input for data extraction. Long, but worth sitting through.' },
-                { title: 'Who Owns the Future?', author: 'Jaron Lanier', cat: 'Cybertech & Internet', thoughts: 'Lanier points out that the concentration of data and wealth in a handful of platforms is not inevitable — it\'s a design.' },
-                { title: 'The Cathedral and the Bazaar', author: 'Eric S. Raymond', cat: 'Cybertech & Internet', thoughts: 'The essay that helped convince Netscape to open-source. "Given enough eyeballs, all bugs are shallow" mostly holds; the parts that don\'t are interesting too.' },
-                { title: 'Hackers: Heroes of the Computer Revolution', author: 'Steven Levy', cat: 'Cybertech & Internet', thoughts: 'The origin story of hacker culture, from the MIT model railroad club to personal computing. A nice piece of social history.' },
-                { title: 'The Hacker Crackdown', author: 'Bruce Sterling', cat: 'Cybertech & Internet', thoughts: 'Sterling\'s account of the 1990 hacker crackdown reads partly as narrative and partly as an early warning about how law enforcement and digital culture would keep colliding.' },
-                { title: 'Information Doesn\'t Want to Be Free', author: 'Cory Doctorow', cat: 'Cybertech & Internet', thoughts: 'Doctorow on copyright, DRM, and the economics of creative work. Clear and a little urgent, in a useful way.' },
-                { title: 'From Counterculture to Cyberculture', author: 'Fred Turner', cat: 'Cybertech & Internet', thoughts: 'Traces the strange path from 1960s communes to 1990s Silicon Valley. Once you\'ve read it, certain industry rituals make more sense.' },
-                { title: 'Radical Technologies', author: 'Adam Greenfield', cat: 'Cybertech & Internet', thoughts: 'Greenfield writes about smartphones, 3D printing, crypto, and AI with a critical eye that never tips over into dismissal.' },
-                { title: 'The Shallows', author: 'Nicholas Carr', cat: 'Cybertech & Internet', thoughts: 'Carr\'s claim that the internet rewires our brains for shallow attention is unsettling mainly because the experience of reading it confirms it.' },
-                { title: 'Code: The Hidden Language of Computer Hardware and Software', author: 'Charles Petzold', cat: 'Cybertech & Internet', thoughts: 'The clearest book on binary and circuits I\'ve come across. A good place to send anyone who wants to know what\'s under the abstraction.' },
-                { title: 'A Geometry of Music', author: 'Dmitri Tymoczko', cat: 'Music & Mathematics', thoughts: 'Tymoczko treats chords as points in geometric spaces and voice leading as motion between them. Once it clicks, you can\'t unsee it.' },
-                { title: 'Music: A Mathematical Offering', author: 'Dave Benson', cat: 'Music & Mathematics', thoughts: 'A wide tour of the maths behind sound and music. Fourier, group theory, information theory — they all show up.' },
-                { title: 'Formalized Music', author: 'Iannis Xenakis', cat: 'Music & Mathematics', thoughts: 'Xenakis bringing stochastic processes, set theory, and game theory to composition. Strange and a little intimidating.' },
-                { title: 'Musimathics', author: 'Gareth Loy', cat: 'Music & Mathematics', thoughts: 'Two volumes that bridge music and mathematics carefully. Loy is unusually patient with the pedagogy.' },
-                { title: 'Microsound', author: 'Curtis Roads', cat: 'Music & Mathematics', thoughts: 'Roads at the micro-time scale — grains, particles, clouds. A useful complement to thinking about sound only as waveforms.' },
-                { title: 'How Music Works', author: 'David Byrne', cat: 'Music & Mathematics', thoughts: 'Byrne on how context shapes form. "Architecture is frozen music" runs quietly through the whole thing.' },
-                { title: 'The Rest Is Noise', author: 'Alex Ross', cat: 'Music & Mathematics', thoughts: 'A history of twentieth-century classical music that reads like a long, very good essay.' },
-                { title: 'Ocean of Sound', author: 'David Toop', cat: 'Music & Mathematics', thoughts: 'Toop tracing ambient music from Debussy through Aphex Twin. More about listening than analysis.' },
-                { title: 'Harmonic Experience', author: 'W.A. Mathieu', cat: 'Music & Mathematics', thoughts: 'Mathieu teaches harmony by ear and feel — singing intervals, hearing beats. The kind of book that asks something of you.' },
-                { title: 'The CSound Book', author: 'Richard Boulanger (ed.)', cat: 'Music & Mathematics', thoughts: 'A practical introduction to computer music with CSound. Less a read than a reference.' },
-                { title: 'The Art of Doing Science and Engineering', author: 'Richard Hamming', cat: 'Systems & Complexity', thoughts: 'Hamming\'s "You and Your Research" talk, expanded. The chapters on learning to learn have stayed with me longer than most career advice.' },
-                { title: 'The Beginning of Infinity', author: 'David Deutsch', cat: 'Philosophy', thoughts: 'Deutsch arguing that good explanations — creative, hard-to-vary ones — are where progress comes from. I don\'t buy all of it, but the parts I do buy run deep.' },
-                { title: 'The Master and His Emissary', author: 'Iain McGilchrist', cat: 'Philosophy', thoughts: 'McGilchrist on the two hemispheres attending to the world in different ways. The neuroscience is contested in places; the framing is still interesting.' },
-                { title: 'Impro', author: 'Keith Johnstone', cat: 'Systems & Complexity', thoughts: 'On the surface a book about improvisational theatre, but mostly about status, blocks, and what stops people from being spontaneous. Travels well outside theatre.' },
-                { title: 'The Elements of Typographic Style', author: 'Robert Bringhurst', cat: 'Software & Programming', thoughts: 'Not about coding at all. Filed here because how Bringhurst thinks about craft generalises to almost any design problem.' }
-            ];
-
-            // ---------- DATA: NOTES, ESSAYS, RESEARCH, TINKER ----------
-            const notesEntries = [
-                ['2026-05-01', 'debugging looks a lot like bayesian inference if you squint. you start with some prior over where the fault might be, you watch what the program does, you update. most of us just don\'t write the likelihood down', 'systems'],
-                ['2026-04-14', 'spent 45 minutes on a race condition that turned out to be the CPU reordering instructions. it\'s easy to forget that the machine is not actually doing what you wrote, line by line', 'systems'],
-                ['2026-03-28', 'overfitting isn\'t really a technical problem. memorising and generalising look the same from the inside, and most of the time you only find out which one happened later', 'ml'],
-                ['2026-03-10', 'language models are a lossy compression of the internet. i\'m less interested in whether they reason and more interested in what kind of compression preserves what kind of reasoning. those feel like different questions', 'ml'],
-                ['2026-02-22', 'attention isn\'t all you need, but it\'s most of what you\'ve got. the rest is the boring part — the part that takes the time', 'systems'],
-                ['2026-01-15', 'the most dangerous phrase in a codebase is "we\'ll fix it later." a close second is "it\'s just a prototype." entropy doesn\'t care about your roadmap', 'architecture'],
-                ['2025-12-08', 'probability theory isn\'t really about what\'s true. it\'s about how uncertain you should be, given what you have. that\'s a smaller and more useful claim than it sounds', 'math'],
-                ['2025-11-20', 'spent an afternoon deriving the kalman filter from bayes\' rule. a gaussian prior, a gaussian likelihood, and some bookkeeping. obvious in hindsight, opaque otherwise — most things i learn end up feeling like that', 'math'],
-                ['2025-10-31', 'the fourier transform turns convolution into multiplication, which is one of those operations that feels almost unfair. an entire class of hard problems becomes easy because you looked at it in a different basis', 'math'],
-                ['2025-10-12', 'someone asked why i read philosophy. i said because reading wittgenstein and debugging distributed systems both teach you that the same word means different things in different rooms. they didn\'t quite buy it', 'philosophy'],
-                ['2025-09-05', 'the condition number of a matrix tells you how much small input errors blow up. organisations have a condition number too, though no one\'s computed it', 'systems'],
-                ['2025-08-18', 'gradient descent is, more or less, walking downhill in the fog. the surprise isn\'t that it works in two dimensions. it\'s that it keeps working in a million', 'ml'],
-                ['2025-07-22', '"ai will replace all programmers in five years." okay. who is going to read the 10,000-line perl script that a sysadmin wrote in 1998 and then left the company', 'software'],
-                ['2025-06-14', 'the central limit theorem is the reason gaussians are everywhere. the generalised version, with stable distributions and fat tails, is the reason finance is harder than physics. mostly people stop reading after the first one', 'math'],
-                ['2025-05-30', 'any system that assumes its users will behave rationally fails the first time a human shows up. this applies to apis, markets, and the door at my old apartment', 'architecture'],
-                ['2025-04-15', 'learning rust has been mostly the experience of realising that every segfault i ever caused was the compiler trying to tell me something i didn\'t want to hear', 'software'],
-                ['2025-03-08', 'the distance between "works on my machine" and "works in production" is measured in implicit assumptions about the environment. docker shortens that distance. it doesn\'t close it', 'systems'],
-                ['2025-02-19', 'markov blanket: the boundary that makes a system\'s internal states conditionally independent of the outside, given the boundary. a well-designed api is doing something close to this', 'systems'],
-                ['2025-01-11', 'read a paper claiming a 0.3% improvement on imagenet with error bars of ±0.4%. there\'s a real version of this field somewhere underneath the noise', 'ml'],
-                ['2024-12-05', 'software rots for thermodynamic reasons. every change adds disorder unless you actively pay to remove it. refactoring isn\'t a luxury, it\'s the energy bill', 'architecture'],
-                ['2024-11-17', 'bayesian priors aren\'t subjective in the loose sense. they\'re explicit about assumptions that frequentist methods bury inside the choice of estimator. being explicit is the whole point', 'stats'],
-                ['2024-10-22', 'a monad is just a monoid in the category of endofunctors. each time i reread this sentence i feel it makes a little more sense, which i\'m choosing to interpret as a good sign', 'software'],
-                ['2024-09-30', 'a good abstraction makes the common case easy and leaves the rare case possible. a bad one makes the common case easy and the rare case impossible. the trick is that you don\'t know which one you wrote until later', 'architecture'],
-                ['2024-08-14', 'two kinds of complexity: the kind that comes with the problem, and the kind we accidentally add. most of the work is not adding the second kind while learning to live with the first', 'systems'],
-                ['2024-07-08', 'the bias-variance tradeoff isn\'t just a modelling thing. simplify too much and you miss the signal. complicate too much and you can\'t generalise. some version of that shows up in most decisions', 'math'],
-                ['2024-06-12', 'training data isn\'t biased by accident. it\'s a faithful record of the world we sampled from. the model is just reading it back to us', 'ethics'],
-                ['2024-05-19', 'the question isn\'t whether a model is accurate. it\'s whether you know when to trust it and when not to. model uncertainty turns out to be the useful output, not the inconvenient one', 'ml'],
-                ['2024-04-03', 'a system perfectly robust to the failures you imagined will fail in some way you didn\'t. resilience and redundancy aren\'t the same thing — resilience is what happens after the surprise', 'systems'],
-                ['2024-03-15', 'at some point you notice that machine learning is mostly different ways of doing function approximation with regularised empirical risk minimisation. the variety is in the architectures, not the underlying move', 'ml'],
-                ['2024-02-28', 'being wrong with quantified uncertainty is better than being right for the wrong reasons. one of those is science, the other is luck wearing a lab coat', 'stats'],
-                ['2024-01-10', 'spent new year\'s day writing a tiny transformer from scratch. 200 lines of python. attention is a weighted average where the weights come from dot products. the rest is just patience', 'ml'],
-                ['2023-11-22', 'abstractions leak. good engineers know roughly where, and keep a bucket nearby. nobody i know has stopped them from leaking', 'software'],
-                ['2023-10-05', 'every time someone uses a t-test without checking normality, a small piece of me retires. the clt is helpful, not a hall pass', 'stats'],
-                ['2023-09-17', 'docker feels like magic until you realise it\'s namespaces and cgroups. kubernetes feels like magic until you realise it\'s docker with a control loop. the layers are knowable, even when the system isn\'t', 'systems'],
-                ['2023-08-01', 'two hard problems in computer science: cache invalidation, naming things, and off-by-one errors', 'software'],
-                ['2023-07-14', 'read jaynes for the first time and realised that what i\'d been calling "probability" was a pile of techniques without a spine. jaynes provided the spine. everything else made more sense afterwards', 'math'],
-                ['2023-06-20', 'the curse of dimensionality: add features and your data gets sparser, fast. intuitions from 2D and 3D stop working. this is partly why deep learning, which learns its own features, ended up where it is', 'ml'],
-                ['2023-05-09', 'a compiler is a function from source code to machine code. an interpreter is a function from source code to behaviour. the rest is optimisation and error messages', 'software'],
-                ['2023-04-02', 'the SVD is about as close to a universal tool as applied math has. it works on matrices, on data, on systems. if you understand it, a lot of things start to look the same', 'math'],
-                ['2023-03-11', 'built my first neural network in numpy. 85% on mnist with two layers. watching the loss curve come down felt like the moment alchemy turned into chemistry', 'ml'],
-                ['2023-02-26', 'most underrated programming skill: reading the error message carefully. the compiler is usually telling you what\'s wrong. it\'s easy to look past that', 'software'],
-                ['2023-01-15', 'distributions are shapes. gaussian is a bell. exponential is a cliff. cauchy is a bell that won\'t commit to a mean. learning to recognise them by sight is more useful than it sounds', 'stats'],
-                ['2022-12-04', 'a system is a set of parts whose behaviour together isn\'t in any one of them. true of software. also of markets, brains, and orchestras', 'systems'],
-                ['2022-11-10', 'learned about shannon entropy. uncertainty in bits. the elegant part is that it\'s the only measure satisfying a short list of axioms — the definition picks itself', 'math'],
-                ['2022-10-08', 'a script does something. a program keeps doing something. the difference is mostly a while loop and some error handling', 'software'],
-                ['2022-09-01', 'started reading about bayesian methods. updating beliefs in a mathematically coherent way felt like cheating at first. it isn\'t — frequentism just made it easy to forget you had priors at all', 'stats'],
-                ['2022-08-15', 'there\'s a deep connection between fourier and linear algebra. the transform is a change of basis in function space, and sinusoids are eigenvectors of LTI systems. this took a while to land, then landed all at once', 'math'],
-                ['2022-07-20', 'a closure is a function that remembers where it grew up', 'software'],
-                ['2022-06-12', '"it works on my machine" is the programmer\'s version of "the surgery was a success." the environment is part of the system, whether you wanted it to be or not', 'systems'],
-                ['2022-05-05', 'just learned the bias-variance decomposition. expected error is bias squared plus variance plus irreducible noise. you can\'t beat the noise; you can only trade bias for variance. the practical question is always how much', 'stats'],
-                ['2022-04-18', 'git isn\'t really a version control system. it\'s a content-addressable filesystem with a version control interface on top. once you see that, rebasing gets a little less terrifying', 'software']
-            ];
-
-            const essayEntries = [
-                ['2026-05-01', 'taste, automation, and what gets harder to teach', 'culture'],
-                ['2026-04-12', 'on why software rots, even when nobody touches it', 'systems'],
-                ['2026-03-18', 'good interfaces have a math problem at the bottom', 'design'],
-                ['2026-02-05', 'leaky abstractions and the wrappers that try to hide them', 'architecture'],
-                ['2025-12-20', 'harmony as a discrete state space (with some loose ends)', 'music'],
-                ['2025-10-08', 'information geometry, in the slow way', 'math'],
-                ['2025-08-15', 'what control theory can quietly tell you about org design', 'systems'],
-                ['2025-06-22', 'linear models keep working, and i\'m not sure we know why', 'stats'],
-                ['2025-04-10', 'bayesian reasoning as a model of how science actually moves', 'philosophy'],
-                ['2025-02-01', 'distributed systems are mostly probability problems wearing a hat', 'systems'],
-                ['2024-11-05', 'overfitting, considered carefully', 'ml'],
-                ['2024-08-18', 'software as a fossil of the organisation that wrote it', 'architecture']
-            ];
-
-            const researchEntries = [
-                ['2026-05-01', 'bayesian hierarchical models for tail-risk measurement', 'in progress'],
-                ['2026-04-15', 'variational inference with normalising flows, applied to portfolio stress tests', 'draft'],
-                ['2026-03-20', 'gaussian process priors on volatility surfaces', 'exploring'],
-                ['2026-02-28', 'conformal prediction for financial time series — uncertainty without distributional assumptions', 'notes'],
-                ['2026-01-10', 'information-theoretic bounds on forecast accuracy when the model is wrong', 'writing'],
-                ['2025-11-05', 'probabilistic programming for counterfactual policy evaluation', 'done']
-            ];
-
-            const tinkerEntries = [
-                ['audio', 'fourier analysis of piano overtones in the browser, using web audio', 'wip'],
-                ['math', '2D wave equation with finite differences, drawn in webgl', 'done'],
-                ['music', 'graphs of chord progressions in common-practice harmony, treated topologically', 'notes'],
-                ['sim', 'n-body gravity with barnes-hut approximation, in three.js', 'done'],
-                ['code', 'a small automatic differentiation engine, written from scratch (~300 lines)', 'done'],
-                ['vis', 'singular value decomposition explorer (the thing you\'re looking at, lower down)', 'done'],
-                ['audio', 'onset detection in real time using spectral flux and an adaptive threshold', 'wip']
-            ];
-
-            // ---------- PAGE DEFINITIONS ----------
-            const pages = {
-                notes: { label: '.notes', winTitle: 'nah.hannan — notes', words: ['notes', 'half-thoughts', 'things i keep coming back to'], entries: notesEntries, prompt: 'small things noticed while working on bigger things. systems, probability, software, the occasional cosmic ray.' },
-                research: { label: 'research', winTitle: 'nah.hannan — research', words: ['research', 'tail risk', 'bayesian things'], entries: researchEntries, prompt: 'may 2026. mostly bayesian hierarchical models for tail risk these days. some of this is settled, most of it isn\'t.' },
-                essays: { label: 'essays', winTitle: 'nah.hannan — essays', words: ['essays', 'things that needed more room', 'longer reads'], entries: essayEntries, prompt: 'a few pieces that needed more than a paragraph. they go where the notes won\'t fit.' },
-                library: { label: 'library', winTitle: 'nah.hannan — library', words: ['library', 'books', 'jaynes', 'strang'], entries: [], prompt: 'books i\'ve read and have something to say about. click one to see what.' },
-                tinkering: { label: 'tinkering', winTitle: 'nah.hannan — tinkering', words: ['tinkering', 'small things', 'simulations'], entries: tinkerEntries, prompt: 'small projects and side experiments. some finished, some not.' },
-                sign: { label: 'sign', winTitle: 'nah.hannan — sign in space', words: ['chalkboard', 'equations', 'leave something'], entries: [], prompt: 'leave an equation if you like. it stays here.' },
-                puzzle: { label: '▒', winTitle: 'nah.hannan — singular', words: ['singular', 'collapse', 'rank one'], entries: [], prompt: 'flatten the space and see what falls out.' }
-            };
-
-            const navOrder = ['notes', 'research', 'essays', 'library', 'tinkering', 'sign'];
-            const nav = $('nav'),
-                typedEl = $('typed'),
-                winTitle = $('winTitle'),
-                statusLeft = $('statusLeft'),
-                statusRight = $('statusRight'),
-                clockEl = $('clock'),
-                bodyEl = $('body'),
-                crtScreen = $('crtScreen');
-
-            // Build nav
-            navOrder.forEach(key => {
-                const a = document.createElement('a');
-                a.textContent = pages[key].label;
-                a.href = '#' + key;
-                a.dataset.page = key;
-                nav.appendChild(a);
-            });
-
-            // Audio
-            let audioCtx;
-
-            function playCrtPop() {
-                try {
-                    if (!audioCtx) audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-                    if (audioCtx.state === 'suspended') audioCtx.resume();
-                    const now = audioCtx.currentTime;
-                    const gain = audioCtx.createGain();
-                    gain.connect(audioCtx.destination);
-                    gain.gain.setValueAtTime(0.1, now);
-                    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
-                    const osc = audioCtx.createOscillator();
-                    osc.connect(gain);
-                    osc.frequency.value = 100;
-                    osc.start();
-                    osc.stop(now + 0.07);
-                } catch (e) { /* autoplay blocked — acceptable degradation */ }
-            }
-
-            // Typewriter
-            let typeTimer, currentWords = [],
-                wordIdx = 0,
-                charIdx = 0,
-                deleting = false;
-
-            function startTypewriter(words) {
-                if (!words || !typedEl) return;
-                clearTimeout(typeTimer);
-                currentWords = words;
-                wordIdx = charIdx = 0;
-                deleting = false;
-                typedEl.textContent = '';
-
-                function step() {
-                    if (!typedEl) return;
-                    const t = currentWords[wordIdx];
-                    if (!t) return;
-                    if (!deleting) {
-                        if (charIdx < t.length) { charIdx++;
-                            typedEl.textContent = t.slice(0, charIdx);
-                            typeTimer = setTimeout(step, 80 + Math.random() * 40); } else { deleting = true;
-                            typeTimer = setTimeout(step, 1800); }
-                    } else {
-                        if (charIdx > 0) { charIdx--;
-                            typedEl.textContent = t.slice(0, charIdx);
-                            typeTimer = setTimeout(step, 40 + Math.random() * 20); } else { deleting = false;
-                            wordIdx = (wordIdx + 1) % currentWords.length;
-                            typeTimer = setTimeout(step, 300); }
-                    }
-                }
-                step();
-            }
-
-            // ═══════════════════════════════════════════════════════════════
-            // SVD · SINGULAR VALUE DECOMPOSITION · A = UΣVᵀ
-            //
-            // Every 2×2 matrix A factors into three operations:
-            //   V  — rotate input space to align with the principal axes
-            //   Σ  — scale along those axes by σ₁ and σ₂
-            //   Uᵀ — rotate output space to its final orientation
-            //
-            // The singular values live on the diagonal of Σ.
-            // They satisfy:   σ₁ · σ₂ = |det(A)|
-            //
-            // When σ₂ = 0:
-            //   det(A) = 0   — no inverse
-            //   rank(A) = 1  — one direction of information has nowhere to go
-            //
-            // This is a theorem, not a metaphor — although it reads as both.
-            // ═══════════════════════════════════════════════════════════════
-            function svd(a, b, c, d) {
-                const ATA11 = a * a + c * c,
-                    ATA12 = a * b + c * d,
-                    ATA22 = b * b + d * d;
-                const trace = ATA11 + ATA22,
-                    detA = ATA11 * ATA22 - ATA12 * ATA12;
-                const disc = Math.sqrt(Math.max(0, trace * trace / 4 - detA));
-                return { sigma1: Math.sqrt(Math.max(0, trace / 2 + disc)), sigma2: Math.sqrt(Math.max(0, trace / 2 -
-                        disc)) };
-            }
-
-            // isSingular colours the ellipse red and pulses the origin —
-            // the visual correlate of σ₂ = 0, det(A) = 0, rank collapse.
-            function drawSVD(ctx, w, h, a, b, c, d, isSingular) {
-                const cx = w / 2,
-                    cy = h / 2,
-                    s  = Math.min(w, h) * 0.30; // responsive scale, not hardcoded
-
-                // ── background ──────────────────────────────────────────────
-                ctx.fillStyle = '#111111';
-                ctx.fillRect(0, 0, w, h);
-
-                // ── grid: separate x and y loops so both axes fill fully ───
-                ctx.beginPath();
-                ctx.strokeStyle = '#1c1c1c';
-                ctx.lineWidth = 0.5;
-                for (let x = cx % s; x <= w; x += s) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
-                for (let y = cy % s; y <= h; y += s) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
-                ctx.stroke();
-
-                // ── axes ─────────────────────────────────────────────────────
-                ctx.beginPath();
-                ctx.strokeStyle = '#2e3e2e';
-                ctx.lineWidth = 1;
-                ctx.moveTo(0, cy); ctx.lineTo(w, cy);
-                ctx.moveTo(cx, 0); ctx.lineTo(cx, h);
-                ctx.stroke();
-
-                // ── unit circle: the "before" space, muted to recede ────────
-                ctx.beginPath();
-                ctx.strokeStyle = '#2a4a6a';
-                ctx.lineWidth = 1;
-                for (let t = 0; t <= Math.PI * 2 + 0.01; t += 0.02) {
-                    const x = cx + Math.cos(t) * s, y = cy - Math.sin(t) * s;
-                    t < 0.01 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-                }
-                ctx.closePath();
-                ctx.stroke();
-
-                // ── transformed ellipse: the "after" space, this is the story
-                // singular → collapses to a line segment, drawn in danger colour
-                ctx.beginPath();
-                ctx.strokeStyle = isSingular ? '#aa3322' : '#b87840';
-                ctx.lineWidth = 2;
-                for (let t = 0; t <= Math.PI * 2 + 0.01; t += 0.02) {
-                    const x0 = Math.cos(t), y0 = Math.sin(t);
-                    const x1 = a * x0 + b * y0, y1 = c * x0 + d * y0;
-                    const x = cx + x1 * s, y = cy - y1 * s;
-                    t < 0.01 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-                }
-                ctx.closePath();
-                ctx.stroke();
-
-                // ── column vectors of A: where the standard basis lands ──────
-                const drawArrow = (tx, ty) => {
-                    const angle = Math.atan2(ty - cy, tx - cx), L = 7;
-                    ctx.moveTo(tx, ty);
-                    ctx.lineTo(tx - L * Math.cos(angle - 0.38), ty - L * Math.sin(angle - 0.38));
-                    ctx.moveTo(tx, ty);
-                    ctx.lineTo(tx - L * Math.cos(angle + 0.38), ty - L * Math.sin(angle + 0.38));
-                };
-                ctx.beginPath();
-                ctx.strokeStyle = '#00aa44';
-                ctx.lineWidth = 1.5;
-                ctx.moveTo(cx, cy); ctx.lineTo(cx + a * s, cy - c * s);
-                ctx.moveTo(cx, cy); ctx.lineTo(cx + b * s, cy - d * s);
-                drawArrow(cx + a * s, cy - c * s);
-                drawArrow(cx + b * s, cy - d * s);
-                ctx.stroke();
-
-                // ── singular-state nullspace hint: dashed line at collapse ───
-                if (isSingular) {
-                    ctx.save();
-                    ctx.setLineDash([3, 5]);
-                    ctx.beginPath();
-                    ctx.strokeStyle = 'rgba(170,51,34,0.22)';
-                    ctx.lineWidth = 1;
-                    ctx.moveTo(0, cy); ctx.lineTo(w, cy);
-                    ctx.stroke();
-                    ctx.restore();
-                }
-
-                // ── origin dot ───────────────────────────────────────────────
-                ctx.beginPath();
-                ctx.fillStyle = isSingular ? '#aa3322' : '#409040';
-                ctx.arc(cx, cy, 3, 0, Math.PI * 2);
-                ctx.fill();
-            }
-
-            function updateSVD() {
-                const a = +$('svdA').value || 0,
-                    b = +$('svdB').value || 0,
-                    c = +$('svdC').value || 0,
-                    d = +$('svdD').value || 0;
-                const { sigma1, sigma2 } = svd(a, b, c, d);
-                const isZero    = !a && !b && !c && !d;
-                const rank      = isZero ? 0 : (Math.abs(sigma2) < 1e-6 ? 1 : 2);
-                const isSingular = rank < 2 && !isZero;
-
-                $('svdMatrixStr').innerHTML  = `⎡ ${a.toFixed(2)}  ${b.toFixed(2)} ⎤<br>⎣ ${c.toFixed(2)}  ${d.toFixed(2)} ⎦`;
-                $('svdSingularStr').innerHTML = `σ₁ = ${sigma1.toFixed(3)}, σ₂ = ${sigma2.toFixed(3)}`;
-                $('svdCondStr').innerHTML    = sigma2 < 1e-6 ? '∞' : (sigma1 / sigma2).toFixed(3);
-                $('svdRankStr').innerHTML    = rank === 0 ? '0 (zero matrix)' : rank === 1 ? '1 (dimension lost)' : '2 (full)';
-                $('svdRecoverStr').innerHTML = isSingular ? 'FALSE' : 'TRUE';
-                // both classes defined in CSS — toggle both so the state is always explicit
-                $('svdRecoverStr').classList.toggle('warning',   isSingular);
-                $('svdRecoverStr').classList.toggle('highlight', !isSingular);
-
-                const rewardEl = $('puzzleReward');
-                if (isSingular && rewardEl) {
-                    rewardEl.style.display = 'block';
-                    rewardEl.innerHTML = `> DETERMINANT ZERO. a dimension is gone.<br>> information cannot be reconstructed. welcome to the left nullspace.<br>
-            <a href="https://xkcd.com/184/" target="_blank" rel="noopener" style="display:block;margin:12px 0;text-align:center;background:rgba(0,0,0,0.3);padding:8px;border:1px solid #2a5a2a;border-radius:2px;">
-              <img src="https://imgs.xkcd.com/comics/matrix_transform.png" alt="xkcd 184: Matrix Transform" style="max-width:100%;height:auto;opacity:0.85;" loading="lazy">
-            </a>
-            <div style="font-style:italic;margin-top:8px;color:#80c080;">Rotation preserves area. The transpose is the inverse. The professor shrinks anyway. Singular matrices live in that gap.<br>Kurzweil predicted the Singularity by 2045. This one arrives when σ₂ = 0.</div>
-            <div style="font-size:11px;text-align:center;margin-top:10px;color:#507050;">> [ ▒ permanently deleted from the DOM ]</div>`;
-                    markSolved();
-                } else if (rewardEl) {
-                    rewardEl.style.display = 'none';
-                }
-
-                const canvas = $('svdCanvas');
-                if (!canvas) return;
-                const w = canvas.clientWidth, h = canvas.clientHeight;
-                // guard: canvas not yet visible (display:none parent) — ResizeObserver will re-fire
-                if (w === 0 || h === 0) return;
-                const dpr = window.devicePixelRatio || 1;
-                canvas.width  = w * dpr;
-                canvas.height = h * dpr;
-                const ctx = canvas.getContext('2d');
-                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-                drawSVD(ctx, w, h, a, b, c, d, isSingular);
-            }
-
-            function setupField(id) {
-                const inp = $(id);
-                if (!inp) return;
-                inp.addEventListener('input', updateSVD);
-                inp.addEventListener('keydown', e => {
-                    const step = e.shiftKey ? 0.1 : 1;
-                    if (e.key === 'ArrowUp') { e.preventDefault();
-                        inp.value = ((+inp.value) + step).toFixed(e.shiftKey ? 1 : 0);
-                        updateSVD(); } else if (e.key === 'ArrowDown') { e.preventDefault();
-                        inp.value = ((+inp.value) - step).toFixed(e.shiftKey ? 1 : 0);
-                        updateSVD(); } else if (e.key === 'r' && !e.ctrlKey && !e.metaKey) { e.preventDefault();
-                        $('svdA').value = 1;
-                        $('svdB').value = 0;
-                        $('svdC').value = 0;
-                        $('svdD').value = 1;
-                        updateSVD(); }
+        // ── resize observer (SVD canvas) ──────────────────────────────
+        let svdResizeObserver = null;
+        let svdRedrawPending  = null;
+        function ensureObserver(canvas) {
+            if (!canvas) return;
+            if (!svdResizeObserver) {
+                svdResizeObserver = new ResizeObserver(() => {
+                    if (svdRedrawPending) cancelAnimationFrame(svdRedrawPending);
+                    svdRedrawPending = requestAnimationFrame(updateSVD);
                 });
             }
+            svdResizeObserver.observe(canvas);
+        }
+        function disconnectObserver() { if (svdResizeObserver) svdResizeObserver.disconnect(); }
 
-            function renderPuzzle() {
-                const el = $('page-puzzle');
-                if (!el) return;
-                el.innerHTML = `<div class="terminal-puzzle">
-            <h3>strang's svd · dimensional collapse</h3>
-            <div class="lede">every linear map <b>A</b> can be written <b>A = UΣVᵀ</b>. the singular values σ₁ and σ₂ are the amounts of stretch along the two principal directions. when one of them drifts toward zero, the map is folding the plane onto a line — and that\'s a move it can\'t straightforwardly undo.</div>
-            <div class="puzzle-math">⎡ a  b ⎤   ⎡ σ₁   0 ⎤   ⎡ — v₁ᵀ — ⎤<br>⎣ c  d ⎦ = ⎣  0  σ₂ ⎦ · ⎣ — v₂ᵀ — ⎦</div>
-            <canvas class="matrix-stage" id="svdCanvas"></canvas>
-            <div class="puzzle-readout">
-              <div><span class="k">system matrix A</span></div><div class="v" id="svdMatrixStr">⎡ 2.00  0 ⎤<br>⎣ 0   1.00 ⎦</div>
-              <div><span class="k">singular values σ</span></div><div class="v" id="svdSingularStr">σ₁ = 2.00, σ₂ = 1.00</div>
-              <div><span class="k">condition number</span></div><div class="v" id="svdCondStr">2.00</div>
-              <div><span class="k">rank</span></div><div class="v" id="svdRankStr">2 (full)</div>
-              <div><span class="k">recoverability</span></div><div class="v highlight" id="svdRecoverStr">TRUE</div>
-            </div>
-            <div class="puzzle-input-group">
-              <label for="svdA">a</label><input type="number" id="svdA" class="matrix-input" step="1" value="2" autocomplete="off" aria-label="Matrix a">
-              <label for="svdB">b</label><input type="number" id="svdB" class="matrix-input" step="1" value="0" autocomplete="off" aria-label="Matrix b">
-              <label for="svdC">c</label><input type="number" id="svdC" class="matrix-input" step="1" value="0" autocomplete="off" aria-label="Matrix c">
-              <label for="svdD">d</label><input type="number" id="svdD" class="matrix-input" step="1" value="1" autocomplete="off" aria-label="Matrix d">
-              <button class="btn" id="svdReset">identity</button>
-            </div>
-            <div class="kbd-hints"><span><kbd>Tab</kbd> next</span><span><kbd>↑↓</kbd> ±1</span><span><kbd>Shift</kbd>+<kbd>↑↓</kbd> ±0.1</span><span><kbd>r</kbd> reset</span></div>
-            <div id="puzzleReward" class="puzzle-reward"></div>
-            <div class="puzzle-math">as σ₂ → 0 the condition number blows up, the matrix stops being invertible, and one direction\'s worth of information has nowhere to go.</div>
-          </div>`;
-                ['svdA', 'svdB', 'svdC', 'svdD'].forEach(setupField);
-                $('svdReset').addEventListener('click', () => { $('svdA').value = 1;
-                    $('svdB').value = 0;
-                    $('svdC').value = 0;
-                    $('svdD').value = 1;
-                    updateSVD(); });
-                updateSVD();
-                const canvas = $('svdCanvas');
-                if (canvas) {
-                    disconnectObserver();
-                    ensureObserver(canvas);
+        // ── solve handlers ────────────────────────────────────────────
+        function markPuzzleSolved() {
+            if (puzzleSolved) return;
+            puzzleSolved = true;
+            safeSet(PUZZLE_KEY, 'true');
+            const g = $('glitch');
+            if (!g) return;
+            g.classList.add('vanishing');
+            g.addEventListener('animationend', () => { if (g.parentNode) g.remove(); }, { once: true });
+            if (glitchInterval) { clearTimeout(glitchInterval); glitchInterval = null; }
+        }
+
+        function markChallengeSolved(id) {
+            challengesSolved[id] = true;
+            safeSetJSON(CHALL_KEY, challengesSolved);
+            const count = Object.keys(challengesSolved).filter(k => challengesSolved[k]).length;
+            if (count === 2) {
+                const overlay = $('dragOverlay');
+                if (overlay) {
+                    overlay.classList.add('show');
+                    setTimeout(() => { overlay.classList.remove('show'); transitionToPage('sign'); }, 1800);
                 }
-            }
-
-            // ---------- BUG PUZZLES ----------
-            const bugPuzzles = {
-                prob: { id: 'prob', title: 'probability glitch', question: 'you flip two fair coins. i tell you at least one is heads. what is the probability both are heads? (enter as fraction, e.g., 1/3)', placeholder: 'x/y', answer: '1/3' },
-                eigen: { id: 'eigen', title: 'linear algebra artifact', question: 'what are the eigenvalues of the matrix [[2,1],[1,2]]? (enter two numbers separated by a comma, e.g., 1,3)', placeholder: 'λ1,λ2', answer: '1,3' },
-                grad: { id: 'grad', title: 'gradient descent step', question: 'given f(x) = x², start at x = 2, learning rate η = 0.25. what is x after one gradient descent step? (f\'(x) = 2x)', placeholder: 'number', answer: '1' }
-            };
-
-            function openBugModal(puzzle) {
-                const modal = $('puzzleModal'),
-                    body = $('modalBody');
-                body.innerHTML =
-                    `<p><strong>${esc(puzzle.title)}</strong></p><p>${esc(puzzle.question)}</p>
-            <input type="text" id="bugAnswer" class="puzzle-modal-input" placeholder="${esc(puzzle.placeholder||'')}" aria-label="Your answer">
-            <button id="bugSubmit" class="puzzle-modal-btn">submit</button>
-            <div id="bugFeedback" style="margin-top:6px;font-size:12px;color:var(--accent);"></div>`;
+            } else if (count === 3) {
+                const modal = $('puzzleModal'), body = $('modalBody');
+                body.innerHTML = '<p style="margin-bottom:8px;">three for three.</p><p style="color:var(--ink-soft);font-size:12px;">nothing left to solve on this page.</p>';
                 modal.classList.add('active');
-                const submit = $('bugSubmit'),
-                    input = $('bugAnswer'),
-                    feedback = $('bugFeedback');
-                // Focus input
-                setTimeout(() => input.focus(), 50);
-                // normalise before comparing: trim whitespace, sort comma-separated
-                // values so eigenvalue answers like "3,1" and "1,3" are both accepted
-                const normalise = s => s.split(',').map(v => v.trim()).sort().join(',');
-                const handler = () => {
-                    const ans = normalise(input.value.trim().toLowerCase());
-                    if (ans === normalise(puzzle.answer)) {
-                        feedback.textContent = 'resolved.';
-                        markBugSolved(puzzle.id);
-                        const bugEl = document.querySelector(`.bug-pixel[data-bug-id="${puzzle.id}"]`);
-                        if (bugEl) bugEl.remove();
-                        setTimeout(() => modal.classList.remove('active'), 500);
-                    } else { feedback.textContent = 'incorrect.'; }
-                };
-                submit.addEventListener('click', handler);
-                input.addEventListener('keydown', e => { if (e.key === 'Enter') handler(); });
+                setTimeout(() => modal.classList.remove('active'), 2800);
             }
+        }
 
-            function closeModal() { $('puzzleModal').classList.remove('active'); }
-            $('modalClose').addEventListener('click', closeModal);
-            $('puzzleModal').addEventListener('click', e => { if (e.target === $('puzzleModal')) closeModal(); });
-            // ESC key to close modal (FIXED)
-            document.addEventListener('keydown', e => {
-                if (e.key === 'Escape' && $('puzzleModal').classList.contains('active')) {
-                    closeModal();
-                }
-            });
+        // ── DATA: notes ───────────────────────────────────────────────
+        const notesEntries = [
+            ['2026-05-01', 'spent three hours on a bug. it was a shape mismatch. the error message said so. i had been scrolling past it', 'code'],
+            ['2026-04-18', 'the argentina credit work is humbling. every time you think you have the macro picture something else catches fire', 'finance'],
+            ['2026-04-02', 'the kalman filter finally clicked — it is just bayes with gaussians. the update step is the posterior. obvious in hindsight', 'stats'],
+            ['2026-03-15', 'pitched the real estate equity thesis to the committee. got pushed hard on the rate assumptions. they were right to push', 'finance'],
+            ['2026-03-01', 'overfitting is always obvious after the fact. never before', 'ml'],
+            ['2026-02-10', 'first hundred pages of jaynes properly. probability as a measure of uncertainty rather than frequency is a small shift that moves a lot', 'stats'],
+            ['2026-01-20', 'building the DCF: rate sensitivity matters more than i expected once you actually vary it across scenarios instead of just picking a number', 'finance'],
+            ['2025-12-15', 'strang\'s SVD chapter for the third time. i keep almost holding the geometry and then losing it', 'math'],
+            ['2025-11-28', 'got the ELBO going down on my first variational inference run. whether the posterior is any good is a different question', 'ml'],
+            ['2025-11-05', 'the fourier transform is a change of basis. i knew those words before i knew what they meant', 'math'],
+            ['2025-10-20', 'git rebase stopped being scary once i understood commits are just pointers. should have sorted this years ago', 'code'],
+            ['2025-10-01', 'mcElreath\'s causal diagrams chapter changed how i set up a model. drawing the DAG before touching data helps a lot', 'stats'],
+            ['2025-09-10', 'wrote the autodiff engine from scratch. understanding backprop at the scalar level made pytorch click in a way reading the docs never did', 'code'],
+            ['2025-08-22', 'garch vol-clustering is obvious once you plot the squared residuals. the textbook description made it sound harder', 'finance'],
+            ['2025-07-15', 'variance is not risk. this comes up constantly in the sovereign credit work', 'finance'],
+            ['2025-06-30', 'canvas has y pointing down. spent an embarrassing amount of time fighting this while building the SVD visualiser', 'code'],
+            ['2025-06-10', 'time series stationarity breaks constantly in real data. the ADF test rejecting does not mean you\'re done', 'stats'],
+            ['2025-05-18', 'pymc is much more usable once you read the docs properly instead of copying examples and hoping', 'code'],
+        ];
 
-            function injectBugs() {
-                // artifacts appear after the feed on each page — no title attribute,
-                // no aria description; discovery is the mechanism.
-                const notesPage = $('page-notes');
-                if (notesPage && !tinyBugsSolved['prob']) {
-                    const bug = document.createElement('span');
-                    bug.className = 'bug-pixel';
-                    bug.dataset.bugId = 'prob';
-                    bug.textContent = '▣';
-                    bug.setAttribute('aria-label', 'rendering artifact');
-                    bug.addEventListener('click', () => openBugModal(bugPuzzles.prob));
-                    const feed = notesPage.querySelector('.feed');
-                    if (feed) feed.after(bug);
-                }
-                const researchPage = $('page-research');
-                if (researchPage && !tinyBugsSolved['eigen']) {
-                    const bug = document.createElement('span');
-                    bug.className = 'bug-pixel';
-                    bug.dataset.bugId = 'eigen';
-                    bug.textContent = '▣';
-                    bug.setAttribute('aria-label', 'rendering artifact');
-                    bug.addEventListener('click', () => openBugModal(bugPuzzles.eigen));
-                    const feed = researchPage.querySelector('.feed');
-                    if (feed) feed.after(bug);
-                }
-                const essaysPage = $('page-essays');
-                if (essaysPage && !tinyBugsSolved['grad']) {
-                    const bug = document.createElement('span');
-                    bug.className = 'bug-pixel';
-                    bug.dataset.bugId = 'grad';
-                    bug.textContent = '▣';
-                    bug.setAttribute('aria-label', 'rendering artifact');
-                    bug.addEventListener('click', () => openBugModal(bugPuzzles.grad));
-                    const feed = essaysPage.querySelector('.feed');
-                    if (feed) feed.after(bug);
+        // ── DATA: essays ──────────────────────────────────────────────
+        const essayEntries = [
+            ['2026-05-01', 'why i keep going back to the SVD', 'math'],
+            ['2026-04-12', 'what building the DCF taught me about my assumptions', 'finance'],
+            ['2026-03-18', 'the part of backprop no one explained to me properly', 'ml'],
+            ['2026-02-05', 'argentina: what the numbers were actually saying', 'finance'],
+            ['2025-12-20', 'what shifted when i read jaynes', 'stats'],
+            ['2025-10-08', 'stationarity in practice is messier than the textbooks suggest', 'stats'],
+            ['2025-08-15', 'things that confused me when i started with bayesian methods', 'stats'],
+            ['2025-06-22', 'building the autodiff engine: what it was actually for', 'code'],
+        ];
+
+        // ── DATA: research ────────────────────────────────────────────
+        const researchEntries = [
+            ['2026-05-01', 'bounds on predictability in bayesian deep learning — working through the cramer-rao floor argument', 'wip'],
+            ['2026-04-15', 'argentina sovereign credit — tail scenarios and refinancing risk for the fund', 'ongoing'],
+            ['2026-03-20', 'covered interest parity deviations and short-term FX forecasting with ARIMA', 'done'],
+            ['2026-02-28', 'real estate equity thesis — rate sensitivity, factor decomposition, DCF for the fund', 'done'],
+            ['2026-01-10', 'gaussian processes for volatility surfaces — early exploration, not much yet', 'notes'],
+            ['2025-11-05', 'reverse-mode autodiff from scratch — to understand what pytorch does at the primitive level', 'done'],
+        ];
+
+        // ── DATA: tinkering ───────────────────────────────────────────
+        const tinkerEntries = [
+            ['vis',     'interactive SVD explorer — singular values, rank, condition number, unit circle transform in real time', 'done'],
+            ['code',    'reverse-mode autodiff in ~300 lines of python — topological sort over a DAG of scalar ops', 'done'],
+            ['finance', 'python DCF model with rate-regime sensitivity and factor decomp — built for the equity pitch', 'done'],
+            ['math',    '2D wave equation with finite differences, visualised with webgl', 'done'],
+            ['audio',   'fourier analysis of piano overtones in the browser using the web audio api', 'wip'],
+            ['sim',     'n-body gravity with barnes-hut tree approximation, three.js', 'wip'],
+        ];
+
+        // ── DATA: books ───────────────────────────────────────────────
+        const books = [
+            { title: 'Probability Theory: The Logic of Science', author: 'E.T. Jaynes', cat: 'Probability & Statistics', thoughts: 'Changed how I think about what probability actually means. Probability as a measure of uncertainty rather than a frequency of events. Still working through the later chapters.' },
+            { title: 'Bayesian Data Analysis', author: 'Gelman et al.', cat: 'Probability & Statistics', thoughts: 'The book I open when I need to actually compute something. Jaynes gave me the framing; this gives me the tools.' },
+            { title: 'Statistical Rethinking', author: 'Richard McElreath', cat: 'Probability & Statistics', thoughts: 'The most readable stats book I have found. The causal diagrams chapter changed how I set up problems.' },
+            { title: 'All of Statistics', author: 'Larry Wasserman', cat: 'Probability & Statistics', thoughts: 'Dense. Better as a second book than a first.' },
+            { title: 'Statistical Inference', author: 'Casella & Berger', cat: 'Probability & Statistics', thoughts: 'Standard grad text. The sufficiency chapters are the ones I go back to.' },
+            { title: 'Elements of Information Theory', author: 'Cover & Thomas', cat: 'Probability & Statistics', thoughts: 'Where probability and computation start sharing vocabulary. Most of ML is downstream of these ideas.' },
+            { title: 'Probability with Martingales', author: 'David Williams', cat: 'Probability & Statistics', thoughts: 'Short and precise. The footnotes are worth reading.' },
+            { title: 'Linear Algebra and Its Applications', author: 'Gilbert Strang', cat: 'Mathematics', thoughts: 'Strang teaches it as geometry first. The SVD chapters are the reason the little interactive thing at the bottom of this site exists.' },
+            { title: 'Linear Algebra Done Right', author: 'Sheldon Axler', cat: 'Mathematics', thoughts: 'Determinants get pushed to the last chapter. By the time you get there you understand why.' },
+            { title: 'Principles of Mathematical Analysis', author: 'Walter Rudin', cat: 'Mathematics', thoughts: 'You work through it slowly rather than read it. A lot of analysis clicked afterwards.' },
+            { title: 'Numerical Linear Algebra', author: 'Trefethen & Bau', cat: 'Mathematics', thoughts: 'Short, careful, good intuitions about conditioning. I go back to the SVD chapters fairly often.' },
+            { title: 'Convex Optimization', author: 'Boyd & Vandenberghe', cat: 'Mathematics', thoughts: 'Useful for spotting when a problem is secretly convex. That is more often than you think.' },
+            { title: 'Pattern Recognition and Machine Learning', author: 'Christopher Bishop', cat: 'Machine Learning', thoughts: 'The Bayesian-leaning ML text. Graphical models and variational inference chapters still hold up.' },
+            { title: 'The Elements of Statistical Learning', author: 'Hastie, Tibshirani, Friedman', cat: 'Machine Learning', thoughts: 'Better as a second book. More useful after you have actually built a few models.' },
+            { title: 'Reinforcement Learning: An Introduction', author: 'Sutton & Barto', cat: 'Machine Learning', thoughts: 'They have been refining this since 1998 and you can feel it. The TD-learning chapters are the ones I re-read.' },
+            { title: 'Gaussian Processes for Machine Learning', author: 'Rasmussen & Williams', cat: 'Machine Learning', thoughts: 'The GP book. Elegant and practical. The covariance function chapters are quietly excellent.' },
+            { title: 'Understanding Deep Learning', author: 'Simon Prince', cat: 'Machine Learning', thoughts: 'A 2023 book that already feels like the right one to start with. Probabilistic eye throughout.' },
+            { title: 'Options, Futures, and Other Derivatives', author: 'John C. Hull', cat: 'Finance', thoughts: 'The standard reference. Methodical. Does not oversimplify.' },
+            { title: 'Stochastic Calculus for Finance', author: 'Steven Shreve', cat: 'Finance', thoughts: 'Two volumes. The discrete-time first volume is the one to start with.' },
+            { title: 'The Black Swan', author: 'Nassim Nicholas Taleb', cat: 'Finance', thoughts: 'The core point — rare events do most of the work — matters more than the presentation sometimes suggests.' },
+            { title: 'Antifragile', author: 'Nassim Nicholas Taleb', cat: 'Finance', thoughts: 'Some systems get stronger under volatility. Useful framing even when you set the rest aside.' },
+            { title: 'Against the Gods', author: 'Peter Bernstein', cat: 'Finance', thoughts: 'A history of how we learned to quantify uncertainty. Pascal through Markowitz, told as a story.' },
+            { title: 'The Signal and the Noise', author: 'Nate Silver', cat: 'Finance', thoughts: 'The case studies are where the Bayesian thinking actually shows up. More useful than the frame suggests.' },
+            { title: 'Thinking in Systems', author: 'Donella Meadows', cat: 'Systems', thoughts: 'The clearest short book about why well-intentioned fixes often do not work.' },
+            { title: 'The Mythical Man-Month', author: 'Fred Brooks', cat: 'Systems', thoughts: 'Written in 1975 about OS/360 and still basically accurate about software.' },
+            { title: 'Designing Data-Intensive Applications', author: 'Martin Kleppmann', cat: 'Systems', thoughts: 'Most database choices are consistency-versus-availability choices in disguise.' },
+            { title: 'Structure and Interpretation of Computer Programs', author: 'Abelson & Sussman', cat: 'Software', thoughts: 'Computer science as managing complexity through abstraction.' },
+            { title: 'The Pragmatic Programmer', author: 'Hunt & Thomas', cat: 'Software', thoughts: 'Two decades of software lessons. The broken windows metaphor has stuck.' },
+            { title: 'A Geometry of Music', author: 'Dmitri Tymoczko', cat: 'Music & Maths', thoughts: 'Chords as points in geometric spaces, voice leading as motion between them. Once it clicks you cannot unsee it.' },
+            { title: 'The Structure of Scientific Revolutions', author: 'Thomas Kuhn', cat: 'Philosophy', thoughts: 'Kuhn gave us "paradigm shift" and then spent years explaining that people had taken it wrong. Both halves are interesting.' },
+            { title: 'Gödel, Escher, Bach', author: 'Douglas Hofstadter', cat: 'Philosophy', thoughts: 'Self-reference and strange loops. I have read it twice and got something different each time.' },
+            { title: 'The Beginning of Infinity', author: 'David Deutsch', cat: 'Philosophy', thoughts: 'Good explanations are creative and hard to vary. I do not buy all of it but the parts I do run deep.' },
+        ];
+
+        // ── page definitions ──────────────────────────────────────────
+        const pages = {
+            notes:    { label: '.notes',    winTitle: 'nah.hannan — notes',     words: ['notes', 'things i noticed', 'half-thoughts'],      entries: notesEntries,  prompt: 'msc finance at ucc. building things to understand them. notes from the process.' },
+            research: { label: 'research',  winTitle: 'nah.hannan — research',  words: ['research', 'fund work', 'live projects'],           entries: researchEntries, prompt: 'current: equity analyst and credit analyst at the ucc student managed fund. independent work on the side.' },
+            essays:   { label: 'essays',    winTitle: 'nah.hannan — essays',    words: ['essays', 'longer reads', 'when a note wasn\'t enough'], entries: essayEntries, prompt: 'longer pieces when a note did not quite fit. mostly stats and finance.' },
+            library:  { label: 'library',   winTitle: 'nah.hannan — library',   words: ['library', 'books', 'reading list'],                 entries: [],            prompt: 'books i have read and have something to say about. click to expand.' },
+            tinkering:{ label: 'tinkering', winTitle: 'nah.hannan — tinkering', words: ['tinkering', 'small builds', 'projects'],            entries: tinkerEntries, prompt: 'things i built to understand how they work. some finished, some not.' },
+            sign:     { label: 'sign',      winTitle: 'nah.hannan — sign',      words: ['sign', 'leave something', 'equations welcome'],     entries: [],            prompt: 'leave an equation if you like.' },
+            puzzle:   { label: '▒',         winTitle: 'nah.hannan — singular',  words: ['singular', 'σ₂ = 0', 'rank collapse'],             entries: [],            prompt: 'drag σ₂ to zero.' },
+        };
+
+        const navOrder = ['notes','research','essays','library','tinkering','sign'];
+        const nav = $('nav'), typedEl = $('typed'), winTitle = $('winTitle'),
+              statusLeft = $('statusLeft'), statusRight = $('statusRight'),
+              clockEl = $('clock'), bodyEl = $('body'), crtScreen = $('crtScreen');
+
+        navOrder.forEach(key => {
+            const a = document.createElement('a');
+            a.textContent = pages[key].label;
+            a.href = '#' + key;
+            a.dataset.page = key;
+            nav.appendChild(a);
+        });
+
+        // ── audio ─────────────────────────────────────────────────────
+        let audioCtx;
+        function playCrtPop() {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const now = audioCtx.currentTime, gain = audioCtx.createGain();
+                gain.connect(audioCtx.destination);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
+                const osc = audioCtx.createOscillator();
+                osc.connect(gain); osc.frequency.value = 100;
+                osc.start(); osc.stop(now + 0.07);
+            } catch(e) {}
+        }
+
+        // ── typewriter ────────────────────────────────────────────────
+        let typeTimer, currentWords = [], wordIdx = 0, charIdx = 0, deleting = false;
+        function startTypewriter(words) {
+            if (!words || !typedEl) return;
+            clearTimeout(typeTimer);
+            currentWords = words; wordIdx = charIdx = 0; deleting = false;
+            typedEl.textContent = '';
+            function step() {
+                if (!typedEl) return;
+                const t = currentWords[wordIdx];
+                if (!t) return;
+                if (!deleting) {
+                    if (charIdx < t.length) { charIdx++; typedEl.textContent = t.slice(0, charIdx); typeTimer = setTimeout(step, 80 + Math.random() * 40); }
+                    else { deleting = true; typeTimer = setTimeout(step, 1800); }
+                } else {
+                    if (charIdx > 0) { charIdx--; typedEl.textContent = t.slice(0, charIdx); typeTimer = setTimeout(step, 40 + Math.random() * 20); }
+                    else { deleting = false; wordIdx = (wordIdx + 1) % currentWords.length; typeTimer = setTimeout(step, 300); }
                 }
             }
+            step();
+        }
 
-            // ---------- RENDERERS ----------
-            function renderLibrary() {
-                const el = $('page-library');
-                if (!el) return;
-                const cats = [...new Set(books.map(b => b.cat))];
-                let html = '';
-                cats.forEach(cat => {
-                    html += `<div class="lib-category">${esc(cat)}</div>`;
-                    books.filter(b => b.cat === cat).forEach(b => html +=
-                        `<div class="book-entry"><div class="book-title-row"><span>${esc(b.title)}</span><span class="book-author">${esc(b.author)}</span></div><div class="book-thoughts">${esc(b.thoughts)}</div></div>`
-                        );
-                });
-                el.innerHTML = html + `<p class="promptline">${esc(pages.library.prompt)}</p>`;
-                el.addEventListener('click', e => {
-                    const entry = e.target.closest('.book-entry');
-                    if (!entry) return;
-                    entry.classList.toggle('open');
-                });
+        // ── SVD maths ─────────────────────────────────────────────────
+        function svd(a, b, c, d) {
+            const ATA11 = a*a+c*c, ATA12 = a*b+c*d, ATA22 = b*b+d*d;
+            const trace = ATA11+ATA22, detA = ATA11*ATA22 - ATA12*ATA12;
+            const disc = Math.sqrt(Math.max(0, trace*trace/4 - detA));
+            return { sigma1: Math.sqrt(Math.max(0, trace/2+disc)), sigma2: Math.sqrt(Math.max(0, trace/2-disc)) };
+        }
+        function drawSVD(ctx, w, h, a, b, c, d, isSingular) {
+            const cx = w/2, cy = h/2, s = Math.min(w,h)*0.30;
+            ctx.fillStyle = '#111111'; ctx.fillRect(0,0,w,h);
+            ctx.beginPath(); ctx.strokeStyle = '#1c1c1c'; ctx.lineWidth = 0.5;
+            for (let x = cx%s; x<=w; x+=s) { ctx.moveTo(x,0); ctx.lineTo(x,h); }
+            for (let y = cy%s; y<=h; y+=s) { ctx.moveTo(0,y); ctx.lineTo(w,y); }
+            ctx.stroke();
+            ctx.beginPath(); ctx.strokeStyle = '#2e3e2e'; ctx.lineWidth = 1;
+            ctx.moveTo(0,cy); ctx.lineTo(w,cy); ctx.moveTo(cx,0); ctx.lineTo(cx,h); ctx.stroke();
+            ctx.beginPath(); ctx.strokeStyle = '#2a4a6a'; ctx.lineWidth = 1;
+            for (let t=0; t<=Math.PI*2+0.01; t+=0.02) {
+                const x=cx+Math.cos(t)*s, y=cy-Math.sin(t)*s;
+                t<0.01 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
             }
-
-            function renderList(key) {
-                const data = pages[key];
-                const el = $('page-' + key);
-                if (!el || !data.entries.length) return;
-                const isLabel = key === 'tinkering';
-                const rows = data.entries.map(([date, title, tag]) => {
-                    const cell = isLabel ? `<span class="label">${esc(date)}</span>` :
-                        `<time datetime="${esc(date)}">${esc(date)}</time>`;
-                    return `<div class="row${isLabel ? ' lib' : ''}">${cell}<span class="title">${esc(title)}</span><span class="tag">[${esc(tag)}]</span></div>`;
-                }).join('');
-                el.innerHTML = `<div class="feed">${rows}</div><p class="promptline">${esc(data.prompt)}</p>`;
+            ctx.closePath(); ctx.stroke();
+            ctx.beginPath(); ctx.strokeStyle = isSingular ? '#aa3322' : '#b87840'; ctx.lineWidth = 2;
+            for (let t=0; t<=Math.PI*2+0.01; t+=0.02) {
+                const x0=Math.cos(t), y0=Math.sin(t);
+                const x1=a*x0+b*y0, y1=c*x0+d*y0;
+                const x=cx+x1*s, y=cy-y1*s;
+                t<0.01 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
             }
-
-            // ─────────────────────────────────────────────────────────────
-            // the sign terminal takes equations.
-            // a few of them, it answers back.
-            // σ₁ · σ₂ = |det(A)| is one of those.
-            // ─────────────────────────────────────────────────────────────
-            const SECRET_CMDS = {
-                'det(a)=0'          : '> det(A) = 0. the null space opens. one direction is gone.',
-                'det(a) = 0'        : '> det(A) = 0. the null space opens. one direction is gone.',
-                'σ₁·σ₂=|det(a)|'   : '> σ₁ · σ₂ = |det(A)|. you read the source.',
-                'σ₁·σ₂ = |det(a)|' : '> σ₁ · σ₂ = |det(A)|. you read the source.',
-                'source'            : '> the structure is part of the argument. reading it counts.',
-                'e^(iπ)+1=0'        : '> euler. yes.',
-                'e^(iπ) + 1 = 0'   : '> euler. yes.',
+            ctx.closePath(); ctx.stroke();
+            const drawArrow = (tx,ty) => {
+                const angle=Math.atan2(ty-cy,tx-cx), L=7;
+                ctx.moveTo(tx,ty); ctx.lineTo(tx-L*Math.cos(angle-0.38),ty-L*Math.sin(angle-0.38));
+                ctx.moveTo(tx,ty); ctx.lineTo(tx-L*Math.cos(angle+0.38),ty-L*Math.sin(angle+0.38));
             };
+            ctx.beginPath(); ctx.strokeStyle = '#00aa44'; ctx.lineWidth = 1.5;
+            ctx.moveTo(cx,cy); ctx.lineTo(cx+a*s,cy-c*s);
+            ctx.moveTo(cx,cy); ctx.lineTo(cx+b*s,cy-d*s);
+            drawArrow(cx+a*s,cy-c*s); drawArrow(cx+b*s,cy-d*s); ctx.stroke();
+            if (isSingular) {
+                ctx.save(); ctx.setLineDash([3,5]);
+                ctx.beginPath(); ctx.strokeStyle='rgba(170,51,34,0.22)'; ctx.lineWidth=1;
+                ctx.moveTo(0,cy); ctx.lineTo(w,cy); ctx.stroke(); ctx.restore();
+            }
+            ctx.beginPath(); ctx.fillStyle = isSingular ? '#aa3322' : '#409040';
+            ctx.arc(cx,cy,3,0,Math.PI*2); ctx.fill();
+        }
+        function updateSVD() {
+            const a=+$('svdA').value||0, b=+$('svdB').value||0,
+                  c=+$('svdC').value||0, d=+$('svdD').value||0;
+            const {sigma1,sigma2} = svd(a,b,c,d);
+            const isZero = !a&&!b&&!c&&!d;
+            const rank = isZero ? 0 : (Math.abs(sigma2)<1e-6 ? 1 : 2);
+            const isSingular = rank<2 && !isZero;
+            $('svdMatrixStr').innerHTML  = `⎡ ${a.toFixed(2)}  ${b.toFixed(2)} ⎤<br>⎣ ${c.toFixed(2)}  ${d.toFixed(2)} ⎦`;
+            $('svdSingularStr').innerHTML = `σ₁ = ${sigma1.toFixed(3)}, σ₂ = ${sigma2.toFixed(3)}`;
+            $('svdCondStr').innerHTML    = sigma2<1e-6 ? '∞' : (sigma1/sigma2).toFixed(3);
+            $('svdRankStr').innerHTML    = rank===0 ? '0 (zero matrix)' : rank===1 ? '1 (dimension lost)' : '2 (full)';
+            $('svdRecoverStr').innerHTML = isSingular ? 'FALSE' : 'TRUE';
+            $('svdRecoverStr').classList.toggle('warning',   isSingular);
+            $('svdRecoverStr').classList.toggle('highlight', !isSingular);
+            const rewardEl = $('puzzleReward');
+            if (isSingular && rewardEl) {
+                rewardEl.style.display = 'block';
+                rewardEl.innerHTML = `> DETERMINANT ZERO. a dimension is gone.<br>> information cannot be reconstructed. welcome to the left nullspace.<br>
+        <a href="https://xkcd.com/184/" target="_blank" rel="noopener noreferrer" style="display:block;margin:12px 0;text-align:center;background:rgba(0,0,0,0.3);padding:8px;border:1px solid #2a5a2a;border-radius:2px;">
+          <img src="https://imgs.xkcd.com/comics/matrix_transform.png" alt="xkcd 184: Matrix Transform" style="max-width:100%;height:auto;opacity:0.85;" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous">
+        </a>
+        <div style="font-style:italic;margin-top:8px;color:#80c080;">Rotation preserves area. The transpose is the inverse. Singular matrices live in the gap where that stops being true.<br>Kurzweil predicted the Singularity by 2045. This one arrives when σ₂ = 0.</div>
+        <div style="font-size:11px;text-align:center;margin-top:10px;color:#507050;">> [ ▒ permanently deleted from the DOM ]</div>`;
+                markPuzzleSolved();
+            } else if (rewardEl) { rewardEl.style.display = 'none'; }
+            const canvas = $('svdCanvas');
+            if (!canvas) return;
+            const w=canvas.clientWidth, h=canvas.clientHeight;
+            if (w===0||h===0) return;
+            const dpr=window.devicePixelRatio||1;
+            canvas.width=w*dpr; canvas.height=h*dpr;
+            const ctx=canvas.getContext('2d');
+            ctx.setTransform(dpr,0,0,dpr,0,0);
+            drawSVD(ctx,w,h,a,b,c,d,isSingular);
+        }
+        function setupField(id) {
+            const inp=$(id);
+            if (!inp) return;
+            inp.addEventListener('input', updateSVD);
+            inp.addEventListener('keydown', e => {
+                const step = e.shiftKey ? 0.1 : 1;
+                if (e.key==='ArrowUp')   { e.preventDefault(); inp.value=((+inp.value)+step).toFixed(e.shiftKey?1:0); updateSVD(); }
+                else if (e.key==='ArrowDown') { e.preventDefault(); inp.value=((+inp.value)-step).toFixed(e.shiftKey?1:0); updateSVD(); }
+                else if (e.key==='r'&&!e.ctrlKey&&!e.metaKey) { e.preventDefault(); $('svdA').value=1;$('svdB').value=0;$('svdC').value=0;$('svdD').value=1; updateSVD(); }
+            });
+        }
 
-            function renderSign() {
-                const el = $('page-sign');
-                if (!el) return;
-                const equations = safeGetJSON(SIGN_KEY, []);
-                const log = equations.map(e => `<li>> ${esc(e)}</li>`).join('');
-                el.innerHTML = `<div class="terminal-sign"><h3>sign in space</h3>
-            <div class="terminal-prompt"><span>></span><input id="termInput" class="terminal-input" placeholder="enter an equation..." aria-label="Enter equation" autocomplete="off" spellcheck="false"></div>
-            <ul class="terminal-log" id="termLog">${log}</ul></div>
-            <p class="promptline">${esc(pages.sign.prompt)}</p>`;
-                const input = $('termInput'),
-                    logEl = $('termLog');
-                // scroll to bottom on load so prior history is visible
-                logEl.scrollTop = logEl.scrollHeight;
-                input.addEventListener('keydown', e => {
-                    if (e.key !== 'Enter') return;
-                    const val = input.value.trim();
-                    if (!val) return;
-                    input.value = '';
-                    const cmd = val.toLowerCase();
-                    // check for secret commands first — they are not persisted to the log
-                    if (SECRET_CMDS[cmd]) {
-                        const li = document.createElement('li');
-                        li.textContent = SECRET_CMDS[cmd];
-                        li.style.color = '#a0ffa0';
-                        logEl.appendChild(li);
-                        logEl.scrollTop = logEl.scrollHeight;
-                        if (!sourcePuzzleSolved) {
-                            sourcePuzzleSolved = true;
-                            safeSet(SOURCE_KEY, 'true');
-                        }
-                        return;
+        // ── render puzzle page ────────────────────────────────────────
+        function renderPuzzle() {
+            const el = $('page-puzzle');
+            if (!el) return;
+            el.innerHTML = `<div class="terminal-puzzle">
+        <h3>SVD · dimensional collapse</h3>
+        <div class="lede">every 2×2 matrix <b>A</b> stretches or squashes the plane along two principal directions. the singular values σ₁ and σ₂ measure how much. when σ₂ hits zero the matrix folds the plane onto a line — a move it cannot undo.</div>
+        <div class="puzzle-math">A = UΣVᵀ   where   Σ = ⎡ σ₁  0 ⎤
+                              ⎣  0 σ₂ ⎦</div>
+        <canvas class="matrix-stage" id="svdCanvas"></canvas>
+        <div class="puzzle-readout">
+          <div><span class="k">matrix A</span></div><div class="v" id="svdMatrixStr">⎡ 2.00  0 ⎤<br>⎣ 0  1.00 ⎦</div>
+          <div><span class="k">singular values</span></div><div class="v" id="svdSingularStr">σ₁ = 2.000, σ₂ = 1.000</div>
+          <div><span class="k">condition number</span></div><div class="v" id="svdCondStr">2.000</div>
+          <div><span class="k">rank</span></div><div class="v" id="svdRankStr">2 (full)</div>
+          <div><span class="k">invertible</span></div><div class="v highlight" id="svdRecoverStr">TRUE</div>
+        </div>
+        <div class="puzzle-input-group">
+          <label for="svdA">a</label><input type="number" id="svdA" class="matrix-input" step="1" value="2" autocomplete="off" aria-label="Matrix a">
+          <label for="svdB">b</label><input type="number" id="svdB" class="matrix-input" step="1" value="0" autocomplete="off" aria-label="Matrix b">
+          <label for="svdC">c</label><input type="number" id="svdC" class="matrix-input" step="1" value="0" autocomplete="off" aria-label="Matrix c">
+          <label for="svdD">d</label><input type="number" id="svdD" class="matrix-input" step="1" value="1" autocomplete="off" aria-label="Matrix d">
+          <button class="btn" id="svdReset">identity</button>
+        </div>
+        <div class="kbd-hints"><span><kbd>Tab</kbd> next field</span><span><kbd>↑↓</kbd> ±1</span><span><kbd>Shift</kbd>+<kbd>↑↓</kbd> ±0.1</span><span><kbd>r</kbd> reset</span></div>
+        <div id="puzzleReward" class="puzzle-reward"></div>
+        <div class="puzzle-math">goal: make σ₂ = 0. watch the ellipse collapse to a line.</div>
+      </div>`;
+            ['svdA','svdB','svdC','svdD'].forEach(setupField);
+            $('svdReset').addEventListener('click', () => {
+                $('svdA').value=1;$('svdB').value=0;$('svdC').value=0;$('svdD').value=1; updateSVD();
+            });
+            updateSVD();
+            const canvas = $('svdCanvas');
+            if (canvas) { disconnectObserver(); ensureObserver(canvas); }
+        }
+
+        // ── inline challenge boxes (visible, not hidden dots) ─────────
+        const challenges = {
+            prob: {
+                id: 'prob',
+                tag: 'probability',
+                q: 'flip two fair coins. i tell you at least one landed heads.\nwhat is the probability both are heads?',
+                hint: 'enter as a fraction, e.g. 1/4',
+                answer: '1/3',
+            },
+            eigen: {
+                id: 'eigen',
+                tag: 'linear algebra',
+                q: 'find the eigenvalues of  A = [[2, 1], [1, 2]].',
+                hint: 'two values, comma-separated, e.g. 1,3',
+                answer: '1,3',
+            },
+            grad: {
+                id: 'grad',
+                tag: 'optimisation',
+                q: 'f(x) = x².  start at x = 2,  learning rate η = 0.25.\nwhat is x after one gradient descent step?',
+                hint: 'f\'(x) = 2x',
+                answer: '1',
+            },
+        };
+
+        // ── floating artifact puzzle triggers ─────────────────────────
+        // Three fixed-position buttons on the viewport, like the glitch
+        // but stationary, amber on hover, different block characters.
+        // Clicking opens a modal challenge; solving collapses them out.
+        const artifactDefs = [
+            { id: 'prob',  sym: '░', ch: challenges.prob,  bottom: '24%', left:  '1.6%' },
+            { id: 'eigen', sym: '▓', ch: challenges.eigen, top:    '26%', right: '1.4%' },
+            { id: 'grad',  sym: '▪', ch: challenges.grad,  top:    '60%', left:  '1.2%' },
+        ];
+
+        function openChallengeModal(def) {
+            const modal = $('puzzleModal'), body = $('modalBody');
+            body.innerHTML = `
+                <p style="font-family:var(--pixel);font-size:17px;letter-spacing:0.5px;margin-bottom:10px;">${esc(def.ch.tag)}</p>
+                <p style="line-height:1.65;margin-bottom:12px;">${esc(def.ch.q).replace(/\n/g,'<br>')}</p>
+                <input type="text" id="challInput" class="puzzle-modal-input"
+                       placeholder="${esc(def.ch.hint)}" autocomplete="off" spellcheck="false" aria-label="answer">
+                <div style="display:flex;align-items:center;gap:10px;margin-top:2px;">
+                  <button id="challSubmit" class="puzzle-modal-btn">submit</button>
+                  <span style="font-size:11px;color:var(--ink-soft);">${esc(def.ch.hint)}</span>
+                </div>
+                <div id="challFb" style="margin-top:8px;font-size:12px;min-height:16px;"></div>`;
+            modal.classList.add('active');
+            const inp = $('challInput'), fb = $('challFb');
+            setTimeout(() => inp && inp.focus(), 50);
+            const normalise = s => s.split(',').map(v => v.trim()).sort().join(',');
+            const attempt = () => {
+                if (!inp) return;
+                const ans = normalise(inp.value.trim().toLowerCase());
+                if (ans === normalise(def.ch.answer)) {
+                    fb.style.color = 'var(--accent)'; fb.textContent = '✓ correct.';
+                    markChallengeSolved(def.id);
+                    const btn = $('artifact-' + def.id);
+                    if (btn) {
+                        btn.classList.add('vanishing');
+                        btn.addEventListener('animationend', () => btn.remove(), { once: true });
                     }
-                    equations.push(val);
-                    safeSetJSON(SIGN_KEY, equations);
+                    setTimeout(closeModal, 700);
+                } else {
+                    fb.style.color = 'var(--danger)'; fb.textContent = '✗ not quite.';
+                    inp.select();
+                }
+            };
+            $('challSubmit').addEventListener('click', attempt);
+            inp.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+        }
+
+        function renderFloatingArtifacts() {
+            artifactDefs.forEach(def => {
+                if (challengesSolved[def.id]) return; // already solved
+                const btn = document.createElement('button');
+                btn.className = 'artifact';
+                btn.id = 'artifact-' + def.id;
+                btn.textContent = def.sym;
+                btn.setAttribute('aria-label', 'puzzle artifact');
+                // apply whichever positional props are defined
+                ['top','bottom','left','right'].forEach(p => { if (def[p]) btn.style[p] = def[p]; });
+                btn.addEventListener('click', () => openChallengeModal(def));
+                document.body.appendChild(btn);
+            });
+        }
+
+        // ── library ───────────────────────────────────────────────────
+        function renderLibrary() {
+            const el = $('page-library');
+            if (!el) return;
+            const cats = [...new Set(books.map(b=>b.cat))];
+            let html = '';
+            cats.forEach(cat => {
+                html += `<div class="lib-category">${esc(cat)}</div>`;
+                books.filter(b=>b.cat===cat).forEach(b =>
+                    html += `<div class="book-entry"><div class="book-title-row"><span>${esc(b.title)}</span><span class="book-author">${esc(b.author)}</span></div><div class="book-thoughts">${esc(b.thoughts)}</div></div>`
+                );
+            });
+            el.innerHTML = html + `<p class="promptline">${esc(pages.library.prompt)}</p>`;
+            el.addEventListener('click', e => {
+                const entry = e.target.closest('.book-entry');
+                if (!entry) return;
+                entry.classList.toggle('open');
+            });
+        }
+
+        function renderList(key) {
+            const data = pages[key];
+            const el = $('page-' + key);
+            if (!el || !data.entries.length) return;
+            const isLabel = key === 'tinkering';
+            const rows = data.entries.map(([date, title, tag]) => {
+                const cell = isLabel
+                    ? `<span class="label">${esc(date)}</span>`
+                    : `<time datetime="${esc(date)}">${esc(date)}</time>`;
+                return `<div class="row${isLabel?' lib':''}"> ${cell}<span class="title">${esc(title)}</span><span class="tag">[${esc(tag)}]</span></div>`;
+            }).join('');
+            el.innerHTML = `<div class="feed">${rows}</div><p class="promptline">${esc(data.prompt)}</p>`;
+        }
+
+        // ── sign terminal ─────────────────────────────────────────────
+        const SECRET_CMDS = {
+            'det(a)=0'         : '> det(A) = 0. the null space opens.',
+            'det(a) = 0'       : '> det(A) = 0. the null space opens.',
+            'σ₁·σ₂=|det(a)|'  : '> σ₁ · σ₂ = |det(A)|. you read the source.',
+            'σ₁·σ₂ = |det(a)|': '> σ₁ · σ₂ = |det(A)|. you read the source.',
+            'source'           : '> reading the source counts.',
+            'e^(iπ)+1=0'       : '> euler. yes.',
+            'e^(iπ) + 1 = 0'   : '> euler. yes.',
+        };
+        function renderSign() {
+            const el = $('page-sign');
+            if (!el) return;
+            const equations = safeGetJSON(SIGN_KEY, []);
+            const log = equations.map(e => `<li>> ${esc(e)}</li>`).join('');
+            el.innerHTML = `<div class="terminal-sign"><h3>sign in space</h3>
+        <div class="terminal-prompt"><span>></span><input id="termInput" class="terminal-input" placeholder="enter an equation..." aria-label="Enter equation" autocomplete="off" spellcheck="false"></div>
+        <ul class="terminal-log" id="termLog">${log}</ul></div>
+        <p class="promptline">${esc(pages.sign.prompt)}</p>`;
+            const input=$('termInput'), logEl=$('termLog');
+            logEl.scrollTop = logEl.scrollHeight;
+            input.addEventListener('keydown', e => {
+                if (e.key !== 'Enter') return;
+                const val = input.value.trim();
+                if (!val) return;
+                input.value = '';
+                const cmd = val.toLowerCase();
+                if (SECRET_CMDS[cmd]) {
                     const li = document.createElement('li');
-                    li.textContent = '> ' + val;
+                    li.textContent = SECRET_CMDS[cmd];
+                    li.style.color = '#a0ffa0';
                     logEl.appendChild(li);
                     logEl.scrollTop = logEl.scrollHeight;
-                });
-                setTimeout(() => input.focus(), 100);
-            }
-
-            // Initial render
-            navOrder.forEach(key => { if (key === 'library') renderLibrary();
-                else if (key === 'sign') renderSign();
-                else if (key !== 'puzzle') renderList(key); });
-            renderPuzzle();
-            injectBugs();
-
-            // ---------- TRANSITIONS ----------
-            let isTransitioning = false,
-                currentKey = null; // null forces swapPageContent to run fully on first call
-
-            function swapPageContent(key, fromNav) {
-                if (!pages[key]) key = 'notes';
-                if (key === currentKey && !fromNav) return;
-                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-                const ap = $('page-' + key);
-                if (ap) ap.classList.add('active');
-                nav.querySelectorAll('a').forEach(a => {
-                    const m = a.dataset.page === key;
-                    a.classList.toggle('active', m);
-                    if (m) a.setAttribute('aria-current', 'page');
-                    else a.removeAttribute('aria-current');
-                });
-                winTitle.textContent = pages[key].winTitle;
-                document.title = pages[key].winTitle;
-                statusLeft.textContent = pages[key].label;
-                const n = pages[key].entries ? pages[key].entries.length : (key === 'library' ? books.length : 0);
-                statusRight.textContent = n > 0 ? `${n} item${n > 1 ? 's' : ''}` : 'ready';
-                if (bodyEl) bodyEl.scrollTop = 0;
-                startTypewriter(pages[key].words);
-                currentKey = key;
-                if (!fromNav) history.replaceState(null, '', '#' + key);
-                if (key === 'puzzle') {
-                    const canvas = $('svdCanvas');
-                    if (canvas) ensureObserver(canvas);
-                } else {
-                    disconnectObserver();
+                    if (!sourcePuzzleSolved) { sourcePuzzleSolved=true; safeSet(SOURCE_KEY,'true'); }
+                    return;
                 }
-            }
-
-            function transitionToPage(key) {
-                if (isTransitioning) return;
-                isTransitioning = true;
-                playCrtPop();
-                if (crtScreen) {
-                    crtScreen.classList.add('crt-shutdown');
-                    setTimeout(() => {
-                        swapPageContent(key, true);
-                        crtScreen.classList.remove('crt-shutdown');
-                        crtScreen.classList.add('crt-startup');
-                        setTimeout(() => { crtScreen.classList.remove('crt-startup');
-                            isTransitioning = false; }, 400);
-                    }, 70);
-                } else { swapPageContent(key, true);
-                    isTransitioning = false; }
-            }
-            nav.addEventListener('click', e => {
-                const a = e.target.closest('a[data-page]');
-                if (!a) return;
-                e.preventDefault();
-                transitionToPage(a.dataset.page);
+                equations.push(val);
+                safeSetJSON(SIGN_KEY, equations);
+                const li = document.createElement('li');
+                li.textContent = '> ' + val;
+                logEl.appendChild(li);
+                logEl.scrollTop = logEl.scrollHeight;
             });
-            window.addEventListener('hashchange', () => {
-                const k = location.hash.replace('#', '');
-                if (k && k !== currentKey && pages[k]) transitionToPage(k);
+            setTimeout(() => input.focus(), 100);
+        }
+
+        // ── initial render ────────────────────────────────────────────
+        navOrder.forEach(key => {
+            if (key === 'library') renderLibrary();
+            else if (key === 'sign') renderSign();
+            else if (key !== 'puzzle') renderList(key);
+        });
+        renderPuzzle();
+        renderFloatingArtifacts();
+
+        // ── modal ─────────────────────────────────────────────────────
+        function closeModal() { $('puzzleModal').classList.remove('active'); }
+        $('modalClose').addEventListener('click', closeModal);
+        $('puzzleModal').addEventListener('click', e => { if (e.target===$('puzzleModal')) closeModal(); });
+        document.addEventListener('keydown', e => {
+            if (e.key==='Escape' && $('puzzleModal').classList.contains('active')) closeModal();
+        });
+
+        // ── transitions ───────────────────────────────────────────────
+        let isTransitioning = false, currentKey = null;
+        function swapPageContent(key, fromNav) {
+            if (!pages[key]) key = 'notes';
+            if (key===currentKey && !fromNav) return;
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const ap = $('page-' + key);
+            if (ap) ap.classList.add('active');
+            nav.querySelectorAll('a').forEach(a => {
+                const m = a.dataset.page === key;
+                a.classList.toggle('active', m);
+                m ? a.setAttribute('aria-current','page') : a.removeAttribute('aria-current');
             });
+            winTitle.textContent = pages[key].winTitle;
+            document.title = pages[key].winTitle;
+            statusLeft.textContent = pages[key].label;
+            const n = pages[key].entries ? pages[key].entries.length : (key==='library' ? books.length : 0);
+            statusRight.textContent = n > 0 ? `${n} item${n>1?'s':''}` : 'ready';
+            if (bodyEl) bodyEl.scrollTop = 0;
+            startTypewriter(pages[key].words);
+            currentKey = key;
+            if (!fromNav) history.replaceState(null,'','#'+key);
+            if (key==='puzzle') { const c=$('svdCanvas'); if(c) ensureObserver(c); }
+            else disconnectObserver();
+        }
+        function transitionToPage(key) {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            playCrtPop();
+            if (crtScreen) {
+                crtScreen.classList.add('crt-shutdown');
+                setTimeout(() => {
+                    swapPageContent(key, true);
+                    crtScreen.classList.remove('crt-shutdown');
+                    crtScreen.classList.add('crt-startup');
+                    setTimeout(() => { crtScreen.classList.remove('crt-startup'); isTransitioning=false; }, 400);
+                }, 70);
+            } else { swapPageContent(key, true); isTransitioning=false; }
+        }
+        nav.addEventListener('click', e => {
+            const a = e.target.closest('a[data-page]');
+            if (!a) return;
+            e.preventDefault();
+            transitionToPage(a.dataset.page);
+        });
+        window.addEventListener('hashchange', () => {
+            const k = location.hash.replace('#','');
+            if (k && k!==currentKey && pages[k]) transitionToPage(k);
+        });
 
-            // ---------- GLITCH PIXEL ----------
-            const glitchBtn = $('glitch');
-
-            function moveGlitch() {
-                if (!glitchBtn || !glitchBtn.isConnected || puzzleSolved) return;
-                const pad = 28;
-                const maxX = Math.max(0, window.innerWidth - 76);
-                const maxY = Math.max(0, window.innerHeight - 76);
-                glitchBtn.style.left = Math.min(pad + Math.random() * maxX, maxX) + 'px';
-                glitchBtn.style.top = Math.min(pad + Math.random() * maxY, maxY) + 'px';
+        // ── glitch button ─────────────────────────────────────────────
+        const glitchBtn = $('glitch');
+        function moveGlitch() {
+            if (!glitchBtn||!glitchBtn.isConnected||puzzleSolved) return;
+            const pad=28, maxX=Math.max(0,window.innerWidth-76), maxY=Math.max(0,window.innerHeight-76);
+            glitchBtn.style.left = Math.min(pad+Math.random()*maxX,maxX)+'px';
+            glitchBtn.style.top  = Math.min(pad+Math.random()*maxY,maxY)+'px';
+        }
+        if (glitchBtn) {
+            if (puzzleSolved) glitchBtn.remove();
+            else {
+                (function scheduleGlitch() {
+                    moveGlitch();
+                    glitchInterval = setTimeout(scheduleGlitch, 3200+Math.random()*6400);
+                })();
+                window.addEventListener('resize', moveGlitch);
+                glitchBtn.addEventListener('click', () => transitionToPage('puzzle'));
             }
-            if (glitchBtn) {
-                if (puzzleSolved) glitchBtn.remove();
-                else {
-                    // irregular interval: the machine does not keep a schedule
-                    (function scheduleGlitch() {
-                        moveGlitch();
-                        glitchInterval = setTimeout(scheduleGlitch, 3200 + Math.random() * 6400);
-                    })();
-                    window.addEventListener('resize', moveGlitch);
-                    glitchBtn.addEventListener('click', () => transitionToPage('puzzle'));
-                }
-            }
+        }
 
-            // ---------- CLOCK ----------
-            function tickClock() {
-                const d = new Date();
-                const h12 = ((d.getHours() + 11) % 12) + 1;
-                clockEl.textContent = `${h12}:${String(d.getMinutes()).padStart(2, '0')} ${d.getHours() >= 12 ? 'PM' : 'AM'}`;
-            }
-            tickClock();
-            setInterval(tickClock, 1000);
-            // restore after tab-switch without waiting up to a full second
-            document.addEventListener('visibilitychange', () => { if (!document.hidden) tickClock(); });
+        // ── clock ─────────────────────────────────────────────────────
+        function tickClock() {
+            const d=new Date(), h12=((d.getHours()+11)%12)+1;
+            clockEl.textContent = `${h12}:${String(d.getMinutes()).padStart(2,'0')} ${d.getHours()>=12?'PM':'AM'}`;
+        }
+        tickClock();
+        setInterval(tickClock, 1000);
+        document.addEventListener('visibilitychange', () => { if (!document.hidden) tickClock(); });
 
-            // ---------- INIT ----------
-            const initial = location.hash.replace('#', '') || 'notes';
-            swapPageContent(initial);
-        })();
+        // ── init ──────────────────────────────────────────────────────
+        const initial = location.hash.replace('#','') || 'notes';
+        swapPageContent(initial);
+    })();
     </script>
 </body>
 </html>
